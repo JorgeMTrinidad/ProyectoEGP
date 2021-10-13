@@ -65,7 +65,10 @@ class MaestroObrasController extends Controller
     public function update(Request $request)
     {
         //
-        $maestroObras= MaestroObras::findOrFail($request->id_maestroObras);
+        $value = $request->all();
+        print_r($value);
+
+        $maestroObras= MaestroObras::findOrFail($request->id_maestroobras);
         $maestroObras->nombre = $request->nombre;
         $maestroObras->num_documento = $request->num_documento;
         $maestroObras->telefono = $request->telefono;

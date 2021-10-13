@@ -31,7 +31,7 @@
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-
+                                    <th>id</th>
                                     <th>Maestro de Obras</th>
                                     <th>Número Documento</th>
                                     <th>Teléfono</th>
@@ -46,6 +46,7 @@
 
                                 <tr>
 
+                                    <td>{{$maestro->id}}</td>
                                     <td>{{$maestro->nombre}}</td>
                                     <td>{{$maestro->num_documento}}</td>
                                     <td>{{$maestro->telefono}}</td>
@@ -53,7 +54,7 @@
                                     <td>{{$maestro->direccion}}</td>
 
                                     <td>
-                                        <button type="button" class="btn btn-info btn-md" data-id_maestroObras="{{$maestro->id}}" data-nombre="{{$maestro->nombre}}" data-num_documento="{{$maestro->num_documento}}" data-direccion="{{$maestro->direccion}}" data-telefono="{{$maestro->telefono}}" data-email="{{$maestro->email}}" data-toggle="modal" data-target="#abrirmodalEditar">
+                                        <button type="button" class="btn btn-info btn-md" data-id_maestroobras="{{$maestro->id}}" data-nombre="{{$maestro->nombre}}" data-num_documento="{{$maestro->num_documento}}" data-direccion="{{$maestro->direccion}}" data-telefono="{{$maestro->telefono}}" data-email="{{$maestro->email}}" data-toggle="modal" data-target="#abrirmodalEditar">
                                           <i class="fa fa-edit fa-2x"></i> Editar
                                         </button> &nbsp;
                                     </td>
@@ -123,7 +124,7 @@
                                 {{method_field('patch')}}
                                 {{csrf_field()}}
 
-                                <input type="hidden" id="id_maestroObras" name="id_maestroObras" value="">
+                                <input type="hidden" id="id_maestroobras" name="id_maestroobras" value="">
 
                                 @include('maestroObras.form')
 

@@ -196,7 +196,7 @@
         var direccion_modal_editar = button.data('direccion')
         var telefono_modal_editar = button.data('telefono')
         var email_modal_editar = button.data('email')
-        var id_maestroObras = button.data('id_maestroObras')
+        var id_maestroobras = button.data('id_maestroobras')
         var modal = $(this)
         // modal.find('.modal-title').text('New message to ' + recipient)
         /*los # son los id que se encuentran en el formulario*/
@@ -205,7 +205,7 @@
         modal.find('.modal-body #direccion').val(direccion_modal_editar);
         modal.find('.modal-body #telefono').val(telefono_modal_editar);
         modal.find('.modal-body #email').val(email_modal_editar);
-        modal.find('.modal-body #id_maestroObras').val(id_maestroObras);
+        modal.find('.modal-body #id_maestroobras').val(id_maestroobras);
         })
 
 
