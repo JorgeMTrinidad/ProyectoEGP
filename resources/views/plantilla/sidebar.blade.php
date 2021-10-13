@@ -54,8 +54,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{url('cliente')}}" onclick="event.preventDefault(); document.getElementById('cliente-form').submit();"><i class="fa fa-users"></i> Clientes</a>
-                <form id="cliente-form" action="{{url('cliente')}}" method="GET" style="display: none;">
+                <a class="nav-link" href="{{url('maestroObras')}}" onclick="event.preventDefault(); document.getElementById('maestroObras-form').submit();"><i class="fa fa-users"></i> Maestros de Obras</a>
+                <form id="maestroObras-form" action="{{url('maestroObras')}}" method="GET" style="display: none;">
                     {{csrf_field()}}
                  </form>
             </li>
