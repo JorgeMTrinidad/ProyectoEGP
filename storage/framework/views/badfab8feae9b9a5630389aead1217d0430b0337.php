@@ -60,8 +60,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(url('cliente')); ?>" onclick="event.preventDefault(); document.getElementById('cliente-form').submit();"><i class="fa fa-users"></i> Clientes</a>
-                <form id="cliente-form" action="<?php echo e(url('cliente')); ?>" method="GET" style="display: none;">
+                <a class="nav-link" href="<?php echo e(url('maestroObras')); ?>" onclick="event.preventDefault(); document.getElementById('maestroObras-form').submit();"><i class="fa fa-users"></i> Maestros de Obras</a>
+                <form id="maestroObras-form" action="<?php echo e(url('maestroObras')); ?>" method="GET" style="display: none;">
                     <?php echo e(csrf_field()); ?>
 
                  </form>
