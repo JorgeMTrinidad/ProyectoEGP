@@ -31,7 +31,7 @@
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-                                    <th>id</th>
+                                    
                                     <th>Maestro de Obras</th>
                                     <th>Número Documento</th>
                                     <th>Teléfono</th>
@@ -46,7 +46,6 @@
 
                                 <tr>
 
-                                    <td>{{$maestro->id}}</td>
                                     <td>{{$maestro->nombre}}</td>
                                     <td>{{$maestro->num_documento}}</td>
                                     <td>{{$maestro->telefono}}</td>
