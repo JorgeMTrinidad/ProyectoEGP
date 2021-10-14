@@ -19,4 +19,6 @@ Route::resource('categoria', 'CategoriaController');
 Route::resource('producto', 'ProductoController');
 Route::resource('proveedor', 'ProveedorController');
 Route::resource('maestroObras', 'MaestroObrasController');
+Route::resource('rol', 'RolController');
+Route::resource('user', 'UserController');
 
