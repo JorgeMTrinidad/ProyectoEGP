@@ -36,17 +36,18 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                     <img src="img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                    <span class="d-md-down-none">usuario </span>
+                    <span class="d-md-down-none"><?php echo e(Auth::user()->usuario); ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-header text-center">
                         <strong>Cuenta</strong>
                     </div>
-                    <a class="dropdown-item" href=""
+                    <a class="dropdown-item" href=<?php echo e(route('logout')); ?>""
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-lock"></i> Cerrar sesión</a>
 
-                    <form id="logout-form" action="" method="POST" style="display: none;">
+                    <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+                        <?php echo e(csrf_field()); ?>
 
                     </form>
                 </div>
@@ -56,7 +57,18 @@
 
     <div class="app-body">
 
-        <?php echo $__env->make('plantilla.sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <?php if(Auth::check()): ?>
+            <?php if(Auth::user()->idrol == 1): ?>
+                <?php echo $__env->make('plantilla.sidebarsupervisor', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php elseif(Auth::user()->idrol == 2): ?>
+                <?php echo $__env->make('plantilla.sidebarauxiliar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php elseif(Auth::user()->idrol == 3): ?>
+                <?php echo $__env->make('plantilla.sidebarauditor', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+            <?php else: ?>
+
+            <?php endif; ?>
+
+        <?php endif; ?>
 
         <!-- Contenido Principal -->
 
