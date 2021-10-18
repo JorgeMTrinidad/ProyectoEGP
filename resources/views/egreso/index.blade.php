@@ -53,12 +53,12 @@
                             </thead>
                             <tbody>
 
-                              @foreach($egresos as $vent)
+                              @foreach($egresos as $eg)
 
                                 <tr>
                                     <td>
 
-                                     <a href="{{URL::action('EgresoController@show',$vent->id)}}">
+                                     <a href="{{URL::action('EgresoController@show',$eg->id)}}">
                                        <button type="button" class="btn btn-warning btn-md">
                                          <i class="fa fa-eye fa-2x"></i> Ver detalle
                                        </button> &nbsp;
@@ -66,15 +66,15 @@
                                      </a>
                                    </td>
 
-                                    <td>{{$vent->fecha_egreso}}</td>
-                                    <td>{{$vent->num_egreso}}</td>
-                                    <td>{{$vent->maestroobras}}</td>
-                                    <td>{{$vent->tipo_identificacion}}</td>
-                                    <td>{{$vent->nombre}}</td>
-                                    <td>Q{{number_format($vent->total,2)}}</td>
+                                    <td>{{$eg->fecha_egreso}}</td>
+                                    <td>{{$eg->num_egreso}}</td>
+                                    <td>{{$eg->maestroobras}}</td>
+                                    <td>{{$eg->tipo_identificacion}}</td>
+                                    <td>{{$eg->nombre}}</td>
+                                    <td>Q{{number_format($eg->total,2)}}</td>
                                     <td>
 
-                                      @if($vent->estado=="Registrado")
+                                      @if($eg->estado=="Registrado")
                                         <button type="button" class="btn btn-success btn-md">
 
                                           <i class="fa fa-check fa-2x"></i> Registrado
@@ -94,9 +94,9 @@
 
                                     <td>
 
-                                       @if($vent->estado=="Registrado")
+                                       @if($eg->estado=="Registrado")
 
-                                        <button type="button" class="btn btn-danger btn-sm" data-id_egreso="{{$vent->id}}" data-toggle="modal" data-target="#cambiarEstadoEgreso">
+                                        <button type="button" class="btn btn-danger btn-sm" data-id_egreso="{{$eg->id}}" data-toggle="modal" data-target="#cambiarEstadoEgreso">
                                             <i class="fa fa-times fa-2x"></i> Anular Egreso
                                         </button>
 
@@ -112,7 +112,7 @@
 
                                     <td>
 
-                                        <a href="{{url('pdfEgreso',$vent->id)}}" target="_blank">
+                                        <a href="{{url('pdfEgreso',$eg->id)}}" target="_blank">
 
                                            <button type="button" class="btn btn-info btn-sm">
 

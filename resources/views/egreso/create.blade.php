@@ -4,11 +4,6 @@
 
 <main class="main">
 
-    <script type="text/javascript">
-        function noenter() {
-        return !(window.event && window.event.keyCode == 13); }
-        </script>
-
  <div class="card-body">
 
  <h2>Agregar Egreso</h2>
@@ -17,22 +12,22 @@
 
  <h3 class="text-center">LLenar el formulario</h3>
 
-    <form id="formulario" action="{{route('egreso.store')}}" method="POST">
+    <form action="{{route('egreso.store')}}" method="POST">
     {{csrf_field()}}
 
             <div class="form-group row">
 
             <div class="col-md-8">
 
-                <label class="form-control-label" for="nombre">Nombre del Maestro de Obras</label>
+                <label class="form-control-label" for="nombre">Nombre del Cliente</label>
 
-                    <select class="form-control selectpicker" name="id_maestroobras" id="id_maestroobras" data-live-search="true">
+                    <select class="form-control selectpicker" name="id_maestroobras" id="id_maestroobras" data-live-search="true" required>
 
                     <option value="0" disabled>Seleccione</option>
 
-                    @foreach($maestrosobras as $maes)
+                    @foreach($maestrosobras as $mae)
 
-                    <option value="{{$maes->id}}">{{$maes->nombre}}</option>
+                    <option value="{{$mae->id}}">{{$mae->nombre}}</option>
 
                     @endforeach
 
@@ -45,13 +40,13 @@
 
                 <div class="col-md-8">
 
-                        <label class="form-control-label" for="documento">Transacción</label>
+                        <label class="form-control-label" for="documento">Documento</label>
 
                         <select class="form-control" name="tipo_identificacion" id="tipo_identificacion" required>
 
                             <option value="0" disabled>Seleccione</option>
-                            <option value="EGRESO">Egreso</option>
-                            <option value="TRANSFERENCIA">Transferencia</option>
+                            <option value="PICKINGLIST">Picking List</option>
+
 
                         </select>
                 </div>
@@ -61,9 +56,9 @@
             <div class="form-group row">
 
                 <div class="col-md-8">
-                        <label class="form-control-label" for="num_egreso">Número Transacción</label>
+                        <label class="form-control-label" for="num_egreso">Número Egreso</label>
 
-                        <input type="text" id="num_egreso" onkeypress="return noenter()" name="num_egreso" class="form-control" placeholder="Ingrese el número egreso" pattern="[0-9]{0,15}">
+                        <input type="text" id="num_egreso" required name="num_egreso" class="form-control" placeholder="Ingrese el número egreso" pattern="[0-9]{0,15}">
                 </div>
             </div>
 
@@ -96,7 +91,7 @@
                 <div class="col-md-2">
                         <label class="form-control-label" for="cantidad">Cantidad</label>
 
-                        <input type="number" id="cantidad" onkeypress="return noenter()" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[0-9]{0,15}">
+                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingrese cantidad" pattern="[0-9]{0,15}">
                 </div>
 
                 <div class="col-md-2">
@@ -106,26 +101,26 @@
                 </div>
 
                 <div class="col-md-2">
-                    <label class="form-control-label" for="precio_egreso">Precio</label>
+                        <label class="form-control-label" for="precio_egreso">Precio Egreso</label>
 
-                    <input type="number" step="0.01" id="precio_egreso" onkeypress="return noenter()" name="precio_egreso" class="form-control" placeholder="Ingrese precio de egreso" >
+                        <input type="number" disabled id="precio_egreso" name="precio_egreso" class="form-control" placeholder="Ingrese precio de egreso" >
                 </div>
 
                 <div class="col-md-2">
-                    <label class="form-control-label" for="estado_egreso">Revisión</label>
+                        <label class="form-control-label" for="Revisión">Revisión</label>
 
-                    <select class="form-control" name="estado_egreso" id="estado_egreso" required>
+                        <select class="form-control" name="estado_egreso" id="estado_egreso" required>
 
-                        <option value="0" disabled>Seleccione</option>
-                        <option value="CORRECTO">Correcto</option>
-                        <option value="INCORRECTO">Incorrecto</option>
+                            <option value="0" disabled>Seleccione</option>
+                            <option value="CORRECTO">Correcto</option>
+                            <option value="INCORRECTO">Incorrecto</option>
 
-                    </select>
-            </div>
+                        </select>
+                </div>
 
                 <div class="col-md-4">
 
-                    <button type="button" id="agregar" class="btn btn-terceary"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
+                    <button type="button" id="agregar" class="btn btn-primary"><i class="fa fa-plus fa-2x"></i> Agregar detalle</button>
                 </div>
 
 
@@ -135,7 +130,7 @@
 
            <div class="form-group row border">
 
-              <h3>Lista de Egresos a Maestros de obras</h3>
+              <h3>Lista de Egresos a Clientes</h3>
 
               <div class="table-responsive col-md-12">
                 <table id="detalles" class="table table-bordered table-striped table-sm">
@@ -143,11 +138,10 @@
                     <tr class="bg-success">
                         <th>Eliminar</th>
                         <th>Producto</th>
-                        <th>Precio Egreso</th>
-                        <th>Cantidad</th>
+                        <th>Precio Egreso (Q)</th>
                         <th>Revisión</th>
-                        <th>SubTotal</th>
-
+                        <th>Cantidad</th>
+                        <th>SubTotal (Q)</th>
                     </tr>
                 </thead>
 
@@ -159,10 +153,10 @@
                    <th></th>
                    <th><h4 id="total">Q 0.00</h4><input type="hidden" name="total_egreso" id="total_egreso">  </th>-->
 
-                   <tr>
-                    <th  colspan="5"><p align="right">TOTAL:</p></th>
-                    <th><p align="right"><span id="total">Q 0.00</span> </p></th>
-                </tr>
+                    <tr>
+                        <th  colspan="5"><p align="right">TOTAL:</p></th>
+                        <th><p align="right"><span id="total">Q 0.00</span> </p></th>
+                    </tr>
 
 
                     <tr>
@@ -200,26 +194,6 @@
 @push('scripts')
  <script>
 
-document.addEventListener("DOMContentLoaded", function() {
-  document.getElementById("formulario").addEventListener('submit', validarFormulario);
-});
-
-function validarFormulario(evento) {
-  evento.preventDefault();
-  var maestroobras = document.getElementById('id_maestroobras').value;
-  if(maestroobras.length == 0) {
-    Swal.fire({
-                type: 'error',
-                //title: 'Oops...',
-                text: 'No ha ingresado ningún maestroobras',
-
-                })
-    return;
-  }
-
-  this.submit();
-}
-
   $(document).ready(function(){
 
      $("#agregar").click(function(){
@@ -229,7 +203,7 @@ function validarFormulario(evento) {
 
   });
 
-  var cont=0;
+   var cont=0;
    total=0;
    subtotal=[];
    $("#guardar").hide();
@@ -250,27 +224,26 @@ function validarFormulario(evento) {
          id_producto= datosProducto[0];
          producto= $("#id_producto option:selected").text();
          cantidad= $("#cantidad").val();
-         precio_egreso= $("#precio_egreso").val();
          estado_egreso= $("#estado_egreso").val();
+         precio_egreso= $("#precio_egreso").val();
          stock= $("#stock").val();
 
-
-          if(id_producto !="" && cantidad!="" && cantidad>0  && precio_egreso!="" && estado_egreso!=""){
+          if(id_producto !="" && cantidad!="" && cantidad>0  && estado_egreso!="" && precio_egreso!=""){
 
                 if(parseInt(stock)>=parseInt(cantidad)){
 
-                    /*subtotal[cont]=(cantidad*precio_egreso)-descuento;
+                    /*subtotal[cont]=(cantidad*precio_egreso)-estado_egreso;
                     total= total+subtotal[cont];*/
 
-                    subtotal[cont]=(cantidad*precio_egreso)
+                    subtotal[cont]=(cantidad*precio_egreso);
                     total= total+subtotal[cont];
 
-                    var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" name="precio_egreso[]" value="'+parseFloat(precio_egreso).toFixed(2)+'"> </td><td><input type="number" name="cantidad[]" value="'+parseFloat(cantidad).toFixed(2)+'"> </td><td><input type="text" name="estado_egreso[]" value="'+estado_egreso+'"> </td> <td>Q'+parseFloat(subtotal[cont]).toFixed(2)+'</td></tr>';
+                    var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" name="precio_egreso[]" value="'+parseFloat(precio_egreso).toFixed(2)+'"> </td> <td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td> <td><input type="text" name="estado_egreso[]" value="'+estado_egreso+'"> </td> <td>Q'+parseFloat(subtotal[cont]).toFixed(2)+'</td></tr>';
                     cont++;
                     limpiar();
                     totales();
                     /*$("#total").html("Q " + total.toFixed(2));
-                    $("#total_venta").val(total.toFixed(2));*/
+                    $("#total_egreso").val(total.toFixed(2));*/
                     evaluar();
                     $('#detalles').append(fila);
 
@@ -288,12 +261,12 @@ function validarFormulario(evento) {
 
             }else{
 
-                //alert("Rellene todos los campos del detalle de la venta");
+                //alert("Rellene todos los campos del detalle de la egreso");
 
                 Swal.fire({
                 type: 'error',
                 //title: 'Oops...',
-                text: 'Rellene todos los campos del detalle de la venta',
+                text: 'Rellene todos los campos del detalle de la egreso',
 
                 })
 
@@ -305,7 +278,7 @@ function validarFormulario(evento) {
      function limpiar(){
 
         $("#cantidad").val("");
-        $("#descuento").val("0");
+        $("#estado_egreso").val("0");
         $("#precio_egreso").val("");
 
      }
@@ -313,7 +286,7 @@ function validarFormulario(evento) {
      function totales(){
 
         $("#total").html("Q " + total.toFixed(2));
-        //$("#total_venta").val(total.toFixed(2));
+        //$("#total_egreso").val(total.toFixed(2));
 
         total_pagar=total;
         $("#total_pagar_html").html("Q " + total_pagar.toFixed(2));

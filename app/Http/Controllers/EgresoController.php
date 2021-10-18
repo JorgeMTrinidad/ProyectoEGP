@@ -73,10 +73,8 @@ class EgresoController extends Controller
                  $egreso->idusuario = Auth::user()->id;
                  $egreso->tipo_identificacion = $request->tipo_identificacion;
                  $egreso->num_egreso = $request->num_egreso;
-                 $egreso->fecha_egreso = $mytime->format('d-m-Y h:i:s A');
-                 $egreso->subtotal=$request->parcial_pagar;
+                 $egreso->fecha_egreso = $mytime->toDateString();
                  $egreso->total=$request->total_pagar;
-                 $egreso->total_costos=$request->costos_pagar;
                  $egreso->estado = 'Registrado';
                  $egreso->save();
 
@@ -99,7 +97,7 @@ class EgresoController extends Controller
 
                      $detalle->cantidad = $cantidad[$cont]; //cantidad
                      $detalle->precio = $precio[$cont];
-                     $detalle->costo = $revision[$cont];
+                     $detalle->revision = $revision[$cont];
                      $detalle->save();
                      $cont=$cont+1;
                  }
@@ -126,14 +124,14 @@ class EgresoController extends Controller
              ->join('detalle_egresos','egresos.id','=','detalle_egresos.idegreso')
              ->select('egresos.id','egresos.tipo_identificacion',
              'egresos.num_egreso','egresos.fecha_egreso',
-             'egresos.estado','egresos.subtotal','maestrosobras.nombre',
+             'egresos.estado','maestrosobras.nombre',
              DB::raw('sum(detalle_egresos.cantidad*precio) as total')
              )
              ->where('egresos.id','=',$id)
              ->orderBy('egresos.id', 'desc')
              ->groupBy('egresos.id','egresos.tipo_identificacion',
              'egresos.num_egreso','egresos.fecha_egreso',
-             'egresos.estado','egresos.subtotal','maestrosobras.nombre')
+             'egresos.estado','maestrosobras.nombre')
              ->first();
 
              /*mostrar detalles*/
@@ -160,13 +158,13 @@ class EgresoController extends Controller
              ->join('users','egresos.idusuario','=','users.id')
              ->join('detalle_egresos','egresos.id','=','detalle_egresos.idegreso')
              ->select('egresos.id','egresos.tipo_identificacion',
-             'egresos.num_egreso','egresos.fecha_egreso','egresos.subtotal',
+             'egresos.num_egreso','egresos.fecha_egreso',
              'egresos.estado',DB::raw('sum(detalle_egresos.cantidad*precio) as total'),'maestrosobras.nombre','maestrosobras.tipo_documento','maestrosobras.num_documento',
              'maestrosobras.direccion','maestrosobras.num_documento','maestrosobras.email','maestrosobras.telefono','users.usuario')
              ->where('egresos.id','=',$id)
              ->orderBy('egresos.id', 'desc')
              ->groupBy('egresos.id','egresos.tipo_identificacion',
-             'egresos.num_egreso','egresos.fecha_egreso','egresos.subtotal',
+             'egresos.num_egreso','egresos.fecha_egreso',
              'egresos.estado','maestrosobras.nombre','maestrosobras.tipo_documento','maestrosobras.num_documento',
              'maestrosobras.direccion','maestrosobras.email','maestrosobras.telefono','users.usuario')
              ->take(1)->get();

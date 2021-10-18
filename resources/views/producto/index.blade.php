@@ -15,22 +15,6 @@
                         <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
                         </button>
-
-                        <a href="{{url('listarProductoPdf')}}" target="_blank">
-                            <button type="button" class="btn btn-success btn-lg">
-                                <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Faltantes Jalapa
-                            </button>
-
-                        </a>
-
-                        <a href="{{url('listarProductoPdf2')}}" target="_blank">
-                            <button type="button" class="btn btn-success btn-lg">
-                                <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Faltantes Monjas
-                            </button>
-
-                        </a>
-
-
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -50,13 +34,9 @@
 
                                     <th>Categoria</th>
                                     <th>Producto</th>
-                                    <th>Marca</th>
                                     <th>Codigo</th>
-                                    <th>Precio Máximo</th>
-                                    <th>Precio Sugerido</th>
-                                    <th>Precio Mínimo</th>
-                                    <th>Stock Jalapa</th>
-                                    <th>Stock Monjas</th>
+                                    <th>Precio Venta (Q)
+                                    <th>Stock</th>
                                     <th>Estado</th>
                                     <th>Editar</th>
                                     <th>Cambiar Estado</th>
@@ -70,14 +50,9 @@
 
                                    <td>{{$prod->categoria}}</td>
                                     <td>{{$prod->nombre}}</td>
-                                    <td>{{$prod->marca}}</td>
                                     <td>{{$prod->codigo}}</td>
-                                    <td>{{$prod->pmaximo_venta}}</td>
                                     <td>{{$prod->precio_venta}}</td>
-                                    <td>{{$prod->pminimo_venta}}</td>
                                     <td>{{$prod->stock}}</td>
-                                    <td>{{$prod->stock2}}</td>
-
 
 
                                     <td>
@@ -100,7 +75,7 @@
                                     </td>
 
                                     <td>
-                                        <button type="button" class="btn btn-info btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-stock2="{{$prod->stock2}}" data-nombre="{{$prod->nombre}}" data-marca="{{$prod->marca}}" data-pmaximo_venta="{{$prod->pmaximo_venta}}" data-pminimo_venta="{{$prod->pminimo_venta}}" data-precio_venta="{{$prod->precio_venta}}"  data-toggle="modal" data-target="#abrirmodalEditar">
+                                        <button type="button" class="btn btn-info btn-md" data-id_producto="{{$prod->id}}" data-id_categoria="{{$prod->idcategoria}}" data-codigo="{{$prod->codigo}}" data-stock="{{$prod->stock}}" data-nombre="{{$prod->nombre}}" data-precio_venta="{{$prod->precio_venta}}"  data-toggle="modal" data-target="#abrirmodalEditar">
                                           <i class="fa fa-edit fa-2x"></i> Editar
                                         </button> &nbsp;
                                     </td>

@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistema Compras-Ventas con Laravel">
-    <meta name="keyword" content="Sistema Compras-Ventas con Laravel">
+    <meta name="description" content="Sistema Ingresos-Egresos con Laravel">
+    <meta name="keyword" content="Sistema Ingresos-Egresos con Laravel">
     <title>Repuestos Vimega</title>
     <!-- Icons -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
@@ -120,7 +120,7 @@
 
 
          /******************************************************/
-        /*INICIO ventana modal para cambiar estado de Categoria*/
+        /*INICIO egresona modal para cambiar estado de Categoria*/
 
         $('#cambiarEstado').on('show.bs.modal', function (event) {
 
@@ -134,7 +134,7 @@
         modal.find('.modal-body #id_categoria').val(id_categoria);
         })
 
-        /*FIN ventana modal para cambiar estado de la categoria*/
+        /*FIN egresona modal para cambiar estado de la categoria*/
 
          /*EDITAR PRODUCTO EN VENTANA MODAL*/
          $('#abrirmodalEditar').on('show.bs.modal', function (event) {
@@ -145,7 +145,7 @@
         /*este id_categoria_modal_editar selecciona la categoria*/
         var id_categoria_modal_editar = button.data('id_categoria')
         var nombre_modal_editar = button.data('nombre')
-        var precio_venta_modal_editar = button.data('precio_venta')
+        var precio_egreso_modal_editar = button.data('precio_egreso')
         var codigo_modal_editar = button.data('codigo')
         var stock2_modal_editar = button.data('stock2')
         //var imagen_modal_editar = button.data('imagen1')
@@ -155,14 +155,14 @@
         /*los # son los id que se encuentran en el formulario*/
         modal.find('.modal-body #id').val(id_categoria_modal_editar);
         modal.find('.modal-body #nombre').val(nombre_modal_editar);
-        modal.find('.modal-body #precio_venta').val(precio_venta_modal_editar);
+        modal.find('.modal-body #precio_egreso').val(precio_egreso_modal_editar);
         modal.find('.modal-body #codigo').val(codigo_modal_editar);
         modal.find('.modal-body #stock2').val(stock2_modal_editar);
        // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
         modal.find('.modal-body #id_producto').val(id_producto);
         })
 
-        /*INICIO ventana modal para cambiar el estado del producto*/
+        /*INICIO egresona modal para cambiar el estado del producto*/
 
         $('#cambiarEstado').on('show.bs.modal', function (event) {
 
@@ -176,7 +176,7 @@
         modal.find('.modal-body #id_producto').val(id_producto);
         })
 
-        /*FIN ventana modal para cambiar estado del producto*/
+        /*FIN egresona modal para cambiar estado del producto*/
 
          /*EDITAR PROVEEDOR EN VENTANA MODAL*/
          $('#abrirmodalEditar').on('show.bs.modal', function (event) {
@@ -264,7 +264,7 @@
         modal.find('.modal-body #id_usuario').val(id_usuario);
         })
 
-     /*INICIO ventana modal para cambiar el estado del usuario*/
+     /*INICIO egresona modal para cambiar el estado del usuario*/
 
         $('#cambiarEstado').on('show.bs.modal', function (event) {
 
@@ -278,9 +278,9 @@
         modal.find('.modal-body #id_usuario').val(id_usuario);
         })
 
-        /*FIN ventana modal para cambiar estado del usuario*/
+        /*FIN egresona modal para cambiar estado del usuario*/
 
-         /*INICIO ventana modal para cambiar estado de Ingreso*/
+         /*INICIO egresona modal para cambiar estado de Ingreso*/
 
         $('#cambiarEstadoIngreso').on('show.bs.modal', function (event) {
 
@@ -294,25 +294,25 @@
        modal.find('.modal-body #id_ingreso').val(id_ingreso);
        })
 
-       /*FIN ventana modal para cambiar estado de la Ingreso*/
+       /*FIN egresona modal para cambiar estado de la Ingreso*/
 
 
 
-       /*INICIO ventana modal para cambiar estado de Venta*/
+       /*INICIO egresona modal para cambiar estado de Venta*/
 
-       $('#cambiarEstadoVenta').on('show.bs.modal', function (event) {
+       $('#cambiarEstadoEgreso').on('show.bs.modal', function (event) {
 
         //console.log('modal abierto');
 
         var button = $(event.relatedTarget)
-        var id_venta = button.data('id_venta')
+        var id_egreso = button.data('id_egreso')
         var modal = $(this)
         // modal.find('.modal-title').text('New message to ' + recipient)
 
-        modal.find('.modal-body #id_venta').val(id_venta);
+        modal.find('.modal-body #id_egreso').val(id_egreso);
         })
 
-        /*FIN ventana modal para cambiar estado de la venta*/
+        /*FIN egresona modal para cambiar estado de la egreso*/
 
 
     </script>

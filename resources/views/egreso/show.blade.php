@@ -56,20 +56,6 @@
 
                 <tfoot>
 
-                   <!--<th><h2>TOTAL</h2></th>
-                   <th></th>
-                   <th></th>
-                   <th></th>
-                   <th><h4 id="total">{{$egreso->total}}</h4></th>-->
-                   <tr>
-                    <th  colspan="3"><p align="right">SUBTOTAL:</p></th>
-                    <th><p align="right">Q{{number_format($egreso->subtotal,2)}}</p></th>
-                </tr>
-
-                   <tr>
-                    <th  colspan="3"><p align="right">DESCUENTO:</p></th>
-                    <th><p align="right">Q{{number_format(($egreso->subtotal)-($egreso->total),2)}}</p></th>
-                </tr>
 
                     <tr>
                         <th  colspan="3"><p align="right">TOTAL:</p></th>

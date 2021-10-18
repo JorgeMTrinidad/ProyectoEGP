@@ -27,12 +27,9 @@ class ProductoController extends Controller
             ->join('categorias as c','p.idcategoria','=','c.id')
             ->select('p.id','p.idcategoria','p.nombre','p.precio_venta','p.codigo','p.stock','p.condicion','c.nombre as categoria')
             ->where('p.nombre','LIKE','%'.$sql.'%')
-            ->orwhere('c.nombre','LIKE','%'.$sql.'%')
             ->orwhere('p.codigo','LIKE','%'.$sql.'%')
             ->orderBy('p.id','desc')
-            ->paginate(5);
-
-            $productos->appends(['buscarTexto' => $request->get('buscarTexto')]);
+            ->paginate(3);
 
             /*listar las categorias en ventana modal*/
             $categorias=DB::table('categorias')
@@ -61,19 +58,9 @@ class ProductoController extends Controller
         $producto->idcategoria = $request->id;
         $producto->codigo = $request->codigo;
         $producto->nombre = $request->nombre;
-        $producto->marca = $request->marca;
-        $producto->por_sug = $request->por_sug;
-        $producto->por_max = $request->por_max;
-        $producto->por_min = $request->por_min;
-        $producto->precio_costo = $request->precio_costo;
-        $producto->max_existencia = $request->max_existencia;
-        $producto->min_existencia = $request->min_existencia;
-        $producto->max_existencia2 = $request->max_existencia2;
-        $producto->min_existencia2 = $request->min_existencia2;
-        $producto->stock = $request->stock;
-        $producto->stock2 = $request->stock2;
+        $producto->precio_venta = $request->precio_venta;
+        $producto->stock = '0';
         $producto->condicion = '1';
-
 
         $producto->save();
         return Redirect::to("producto");
@@ -94,20 +81,10 @@ class ProductoController extends Controller
         $producto->idcategoria = $request->id;
         $producto->codigo = $request->codigo;
         $producto->nombre = $request->nombre;
-        $producto->marca = $request->marca;
-        $producto->por_sug = $request->por_sug;
-        $producto->por_max = $request->por_max;
-        $producto->por_min = $request->por_min;
-        $producto->precio_costo = $request->precio_costo;
-        $producto->max_existencia = $request->max_existencia;
-        $producto->min_existencia = $request->min_existencia;
-        $producto->max_existencia2 = $request->max_existencia2;
-        $producto->min_existencia2 = $request->min_existencia2;
-        $producto->stock = $request->stock;
-        $producto->stock2 = $request->stock2;
+        $producto->precio_venta = $request->precio_venta;
+        $producto->stock = '0';
         $producto->condicion = '1';
-
-
+        
         $producto->save();
         return Redirect::to("producto");
     }
@@ -137,40 +114,4 @@ class ProductoController extends Controller
 
             }
     }
-
-       public function listarPdf(){
-
-
-            $productos = Producto::select('productos.id','productos.idcategoria','productos.codigo','productos.nombre',
-            'productos.marca','categorias.nombre as nombre_categoria','productos.stock','productos.marca',
-            'productos.condicion','productos.min_existencia','productos.max_existencia')
-            ->join('categorias','productos.idcategoria','=','categorias.id')
-            ->whereColumn('productos.stock','<=','productos.min_existencia')
-            ->orderBy('productos.nombre', 'desc')->get();
-
-
-            $cont=Producto::count();
-
-            $pdf= \PDF::loadView('pdf.productospdf',['productos'=>$productos,'cont'=>$cont]);
-            return $pdf->download('Multiservicios-Vimega-Jal.pdf');
-
-    }
-
-    public function listarPdf2(){
-
-
-        $productos2 = Producto::select('productos.id','productos.idcategoria','productos.codigo','productos.nombre',
-        'productos.marca','categorias.nombre as nombre_categoria','productos.stock2','productos.marca',
-        'productos.condicion','productos.min_existencia2','productos.max_existencia2')
-        ->join('categorias','productos.idcategoria','=','categorias.id')
-        ->whereColumn('productos.stock2','<=','productos.min_existencia2')
-        ->orderBy('productos.nombre', 'desc')->get();
-
-
-        $cont=Producto::count();
-
-        $pdf= \PDF::loadView('pdf.productospdf2',['productos2'=>$productos2,'cont'=>$cont]);
-        return $pdf->download('Multiservicios-Vimega-Monj.pdf');
-
-}
 }
