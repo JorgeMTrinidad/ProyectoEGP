@@ -12,7 +12,7 @@
 */
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('verified');
+
 
 Route::group(['middleware' => ['guest']], function () {
 
@@ -26,6 +26,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+    Route::get('/home', 'HomeController@index')->name('home');
 
 
 
