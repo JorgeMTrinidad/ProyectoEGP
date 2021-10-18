@@ -13,13 +13,8 @@ namespace Carbon\Traits;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
-use Carbon\CarbonInterval;
-use Carbon\CarbonPeriod;
-use Carbon\Exceptions\UnitException;
 use Closure;
 use DateTime;
-use DateTimeImmutable;
-use ReturnTypeWillChange;
 
 /**
  * Trait Converter.
@@ -29,7 +24,7 @@ use ReturnTypeWillChange;
  *
  * Depends on the following methods:
  *
- * @method static copy()
+ * @method Carbon|CarbonImmutable copy()
  */
 trait Converter
 {
@@ -38,7 +33,7 @@ trait Converter
      *
      * @var string|Closure|null
      */
-    protected static $toStringFormat;
+    protected static $toStringFormat = null;
 
     /**
      * Reset the format used to the default when type juggling a Carbon instance to a string
@@ -68,15 +63,12 @@ trait Converter
     }
 
     /**
-     * Returns the formatted date string on success or FALSE on failure.
-     *
      * @see https://php.net/manual/en/datetime.format.php
      *
      * @param string $format
      *
      * @return string
      */
-    #[ReturnTypeWillChange]
     public function format($format)
     {
         $function = $this->localFormatFunction ?: static::$formatFunction;
@@ -85,11 +77,11 @@ trait Converter
             return $this->rawFormat($format);
         }
 
-        if (\is_string($function) && method_exists($this, $function)) {
+        if (is_string($function) && method_exists($this, $function)) {
             $function = [$this, $function];
         }
 
-        return $function(...\func_get_args());
+        return $function(...func_get_args());
     }
 
     /**
@@ -121,7 +113,7 @@ trait Converter
         return $format instanceof Closure
             ? $format($this)
             : $this->rawFormat($format ?: (
-                \defined('static::DEFAULT_TO_STRING_FORMAT')
+                defined('static::DEFAULT_TO_STRING_FORMAT')
                     ? static::DEFAULT_TO_STRING_FORMAT
                     : CarbonInterface::DEFAULT_TO_STRING_FORMAT
             ));
@@ -165,13 +157,11 @@ trait Converter
      * echo Carbon::now()->toTimeString();
      * ```
      *
-     * @param string $unitPrecision
-     *
      * @return string
      */
-    public function toTimeString($unitPrecision = 'second')
+    public function toTimeString()
     {
-        return $this->rawFormat(static::getTimeFormatByPrecision($unitPrecision));
+        return $this->rawFormat('H:i:s');
     }
 
     /**
@@ -182,38 +172,11 @@ trait Converter
      * echo Carbon::now()->toDateTimeString();
      * ```
      *
-     * @param string $unitPrecision
-     *
      * @return string
      */
-    public function toDateTimeString($unitPrecision = 'second')
+    public function toDateTimeString()
     {
-        return $this->rawFormat('Y-m-d '.static::getTimeFormatByPrecision($unitPrecision));
-    }
-
-    /**
-     * Return a format from H:i to H:i:s.u according to given unit precision.
-     *
-     * @param string $unitPrecision "minute", "second", "millisecond" or "microsecond"
-     *
-     * @return string
-     */
-    public static function getTimeFormatByPrecision($unitPrecision)
-    {
-        switch (static::singularUnit($unitPrecision)) {
-            case 'minute':
-                return 'H:i';
-            case 'second':
-                return 'H:i:s';
-            case 'm':
-            case 'millisecond':
-                return 'H:i:s.v';
-            case 'µ':
-            case 'microsecond':
-                return 'H:i:s.u';
-        }
-
-        throw new UnitException('Precision unit expected among: minute, second, millisecond and microsecond.');
+        return $this->rawFormat('Y-m-d H:i:s');
     }
 
     /**
@@ -222,17 +185,13 @@ trait Converter
      * @example
      * ```
      * echo Carbon::now()->toDateTimeLocalString();
-     * echo "\n";
-     * echo Carbon::now()->toDateTimeLocalString('minute'); // You can specify precision among: minute, second, millisecond and microsecond
      * ```
-     *
-     * @param string $unitPrecision
      *
      * @return string
      */
-    public function toDateTimeLocalString($unitPrecision = 'second')
+    public function toDateTimeLocalString()
     {
-        return $this->rawFormat('Y-m-d\T'.static::getTimeFormatByPrecision($unitPrecision));
+        return $this->rawFormat('Y-m-d\TH:i:s');
     }
 
     /**
@@ -318,15 +277,11 @@ trait Converter
      * echo Carbon::now()->toIso8601ZuluString();
      * ```
      *
-     * @param string $unitPrecision
-     *
      * @return string
      */
-    public function toIso8601ZuluString($unitPrecision = 'second')
+    public function toIso8601ZuluString()
     {
-        return $this->avoidMutation()
-            ->utc()
-            ->rawFormat('Y-m-d\T'.static::getTimeFormatByPrecision($unitPrecision).'\Z');
+        return $this->copy()->utc()->rawFormat('Y-m-d\TH:i:s\Z');
     }
 
     /**
@@ -392,24 +347,16 @@ trait Converter
     /**
      * Format the instance as RFC3339
      *
-     * @param bool $extended
-     *
      * @example
      * ```
-     * echo Carbon::now()->toRfc3339String() . "\n";
-     * echo Carbon::now()->toRfc3339String(true) . "\n";
+     * echo Carbon::now()->toRfc3339String();
      * ```
      *
      * @return string
      */
-    public function toRfc3339String($extended = false)
+    public function toRfc3339String()
     {
-        $format = DateTime::RFC3339;
-        if ($extended) {
-            $format = DateTime::RFC3339_EXTENDED;
-        }
-
-        return $this->rawFormat($format);
+        return $this->rawFormat(DateTime::RFC3339);
     }
 
     /**
@@ -454,9 +401,9 @@ trait Converter
      */
     public function toRfc7231String()
     {
-        return $this->avoidMutation()
+        return $this->copy()
             ->setTimezone('GMT')
-            ->rawFormat(\defined('static::RFC7231_FORMAT') ? static::RFC7231_FORMAT : CarbonInterface::RFC7231_FORMAT);
+            ->rawFormat(defined('static::RFC7231_FORMAT') ? static::RFC7231_FORMAT : CarbonInterface::RFC7231_FORMAT);
     }
 
     /**
@@ -482,7 +429,7 @@ trait Converter
             'second' => $this->second,
             'micro' => $this->micro,
             'timestamp' => $this->timestamp,
-            'formatted' => $this->rawFormat(\defined('static::DEFAULT_TO_STRING_FORMAT') ? static::DEFAULT_TO_STRING_FORMAT : CarbonInterface::DEFAULT_TO_STRING_FORMAT),
+            'formatted' => $this->rawFormat(defined('static::DEFAULT_TO_STRING_FORMAT') ? static::DEFAULT_TO_STRING_FORMAT : CarbonInterface::DEFAULT_TO_STRING_FORMAT),
             'timezone' => $this->timezone,
         ];
     }
@@ -514,7 +461,7 @@ trait Converter
      */
     public function toString()
     {
-        return $this->avoidMutation()->locale('en')->isoFormat('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+        return $this->copy()->locale('en')->isoFormat('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
     }
 
     /**
@@ -537,9 +484,10 @@ trait Converter
             return null;
         }
 
-        $yearFormat = $this->year < 0 || $this->year > 9999 ? 'YYYYYY' : 'YYYY';
+        $keepOffset = (bool) $keepOffset;
+        $yearFormat = true ? 'YYYY' : 'YYYYYY';
         $tzFormat = $keepOffset ? 'Z' : '[Z]';
-        $date = $keepOffset ? $this : $this->avoidMutation()->utc();
+        $date = $keepOffset ? $this : $this->copy()->utc();
 
         return $date->isoFormat("$yearFormat-MM-DD[T]HH:mm:ss.SSSSSS$tzFormat");
     }
@@ -575,21 +523,6 @@ trait Converter
     }
 
     /**
-     * Return native toDateTimeImmutable PHP object matching the current instance.
-     *
-     * @example
-     * ```
-     * var_dump(Carbon::now()->toDateTimeImmutable());
-     * ```
-     *
-     * @return DateTimeImmutable
-     */
-    public function toDateTimeImmutable()
-    {
-        return new DateTimeImmutable($this->rawFormat('Y-m-d H:i:s.u'), $this->getTimezone());
-    }
-
-    /**
      * @alias toDateTime
      *
      * Return native DateTime PHP object matching the current instance.
@@ -604,49 +537,5 @@ trait Converter
     public function toDate()
     {
         return $this->toDateTime();
-    }
-
-    /**
-     * Create a iterable CarbonPeriod object from current date to a given end date (and optional interval).
-     *
-     * @param \DateTimeInterface|Carbon|CarbonImmutable|int|null $end      period end date or recurrences count if int
-     * @param int|\DateInterval|string|null                      $interval period default interval or number of the given $unit
-     * @param string|null                                        $unit     if specified, $interval must be an integer
-     *
-     * @return CarbonPeriod
-     */
-    public function toPeriod($end = null, $interval = null, $unit = null)
-    {
-        if ($unit) {
-            $interval = CarbonInterval::make("$interval ".static::pluralUnit($unit));
-        }
-
-        $period = (new CarbonPeriod())->setDateClass(static::class)->setStartDate($this);
-
-        if ($interval) {
-            $period->setDateInterval($interval);
-        }
-
-        if (\is_int($end) || \is_string($end) && ctype_digit($end)) {
-            $period->setRecurrences($end);
-        } elseif ($end) {
-            $period->setEndDate($end);
-        }
-
-        return $period;
-    }
-
-    /**
-     * Create a iterable CarbonPeriod object from current date to a given end date (and optional interval).
-     *
-     * @param \DateTimeInterface|Carbon|CarbonImmutable|null $end      period end date
-     * @param int|\DateInterval|string|null                  $interval period default interval or number of the given $unit
-     * @param string|null                                    $unit     if specified, $interval must be an integer
-     *
-     * @return CarbonPeriod
-     */
-    public function range($end = null, $interval = null, $unit = null)
-    {
-        return $this->toPeriod($end, $interval, $unit);
     }
 }

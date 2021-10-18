@@ -150,11 +150,10 @@ class Gate implements GateContract
     public function resource($name, $class, array $abilities = null)
     {
         $abilities = $abilities ?: [
-            'viewAny' => 'viewAny',
-            'view'    => 'view',
-            'create'  => 'create',
-            'update'  => 'update',
-            'delete'  => 'delete',
+            'view'   => 'view',
+            'create' => 'create',
+            'update' => 'update',
+            'delete' => 'delete',
         ];
 
         foreach ($abilities as $ability => $method) {
@@ -418,8 +417,6 @@ class Gate implements GateContract
      *
      * @param  callable  $callback
      * @return bool
-     *
-     * @throws \ReflectionException
      */
     protected function callbackAllowsGuests($callback)
     {
@@ -601,8 +598,6 @@ class Gate implements GateContract
      *
      * @param  object|string  $class
      * @return mixed
-     *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function resolvePolicy($class)
     {

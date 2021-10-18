@@ -30,10 +30,10 @@ class ProveedorController extends Controller
             return view('proveedor.index',["proveedores"=>$proveedores,"buscarTexto"=>$sql]);
             //return $proveedores;
         }
-
+       
     }
 
-
+    
 
     /**
      * Store a newly created resource in storage.
@@ -66,9 +66,6 @@ class ProveedorController extends Controller
     public function update(Request $request)
     {
         //
-        $value = $request->all();
-        print_r($value);
-
         $proveedor= Proveedor::findOrFail($request->id_proveedor);
         $proveedor->nombre = $request->nombre;
         $proveedor->tipo_documento = $request->tipo_documento;
@@ -77,7 +74,7 @@ class ProveedorController extends Controller
         $proveedor->email = $request->email;
         $proveedor->direccion = $request->direccion;
         $proveedor->save();
-        //return Redirect::to("proveedor");
+        return Redirect::to("proveedor");
     }
 
 }

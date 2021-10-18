@@ -42,10 +42,6 @@ class DiscoverEvents
                 static::classFromFile($listener, $basePath)
             );
 
-            if (! $listener->isInstantiable()) {
-                continue;
-            }
-
             foreach ($listener->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
                 if (! Str::is('handle*', $method->name) ||
                     ! isset($method->getParameters()[0])) {
@@ -69,10 +65,10 @@ class DiscoverEvents
      */
     protected static function classFromFile(SplFileInfo $file, $basePath)
     {
-        $class = trim(Str::replaceFirst($basePath, '', $file->getRealPath()), DIRECTORY_SEPARATOR);
+        $class = trim(str_replace($basePath, '', $file->getRealPath()), DIRECTORY_SEPARATOR);
 
         return str_replace(
-            [DIRECTORY_SEPARATOR, ucfirst(basename(app()->path())).'\\'],
+            [DIRECTORY_SEPARATOR, 'App\\'],
             ['\\', app()->getNamespace()],
             ucfirst(Str::replaceLast('.php', '', $class))
         );

@@ -11,14 +11,25 @@
 namespace Carbon\Traits;
 
 /**
- * Trait Macros.
+ * Trait Boundaries.
  *
- * Allows users to register macros within the Carbon class.
+ * startOf, endOf and derived method for each unit.
+ *
+ * Depends on the following properties:
+ *
+ * @property int $year
+ * @property int $month
+ * @property int $daysInMonth
+ * @property int $quarter
+ *
+ * Depends on the following methods:
+ *
+ * @method $this setTime(int $hour, int $minute, int $second = 0, int $microseconds = 0)
+ * @method $this setDate(int $year, int $month, int $day)
+ * @method $this addMonths(int $value = 1)
  */
 trait Macro
 {
-    use Mixin;
-
     /**
      * The registered macros.
      *
@@ -86,7 +97,51 @@ trait Macro
     }
 
     /**
-     * Checks if macro is registered globally.
+     * Mix another object into the class.
+     *
+     * @example
+     * ```
+     * Carbon::mixin(new class {
+     *   public function addMoon() {
+     *     return function () {
+     *       return $this->addDays(30);
+     *     };
+     *   }
+     *   public function subMoon() {
+     *     return function () {
+     *       return $this->subDays(30);
+     *     };
+     *   }
+     * });
+     * $fullMoon = Carbon::create('2018-12-22');
+     * $nextFullMoon = $fullMoon->addMoon();
+     * $blackMoon = Carbon::create('2019-01-06');
+     * $previousBlackMoon = $blackMoon->subMoon();
+     * echo "$nextFullMoon\n";
+     * echo "$previousBlackMoon\n";
+     * ```
+     *
+     * @param object $mixin
+     *
+     * @throws \ReflectionException
+     *
+     * @return void
+     */
+    public static function mixin($mixin)
+    {
+        $methods = (new \ReflectionClass($mixin))->getMethods(
+            \ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED
+        );
+
+        foreach ($methods as $method) {
+            $method->setAccessible(true);
+
+            static::macro($method->name, $method->invoke($mixin));
+        }
+    }
+
+    /**
+     * Checks if macro is registered.
      *
      * @param string $name
      *
@@ -95,41 +150,5 @@ trait Macro
     public static function hasMacro($name)
     {
         return isset(static::$globalMacros[$name]);
-    }
-
-    /**
-     * Get the raw callable macro registered globally for a given name.
-     *
-     * @param string $name
-     *
-     * @return callable|null
-     */
-    public static function getMacro($name)
-    {
-        return static::$globalMacros[$name] ?? null;
-    }
-
-    /**
-     * Checks if macro is registered globally or locally.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    public function hasLocalMacro($name)
-    {
-        return ($this->localMacros && isset($this->localMacros[$name])) || static::hasMacro($name);
-    }
-
-    /**
-     * Get the raw callable macro registered globally or locally for a given name.
-     *
-     * @param string $name
-     *
-     * @return callable|null
-     */
-    public function getLocalMacro($name)
-    {
-        return ($this->localMacros ?? [])[$name] ?? static::getMacro($name);
     }
 }

@@ -109,7 +109,7 @@ class BladeCompiler extends Compiler implements CompilerInterface
     /**
      * Compile the view at the given path.
      *
-     * @param  string|null  $path
+     * @param  string  $path
      * @return void
      */
     public function compile($path = null)
@@ -462,7 +462,7 @@ class BladeCompiler extends Compiler implements CompilerInterface
      * Register a component alias directive.
      *
      * @param  string  $path
-     * @param  string|null  $alias
+     * @param  string  $alias
      * @return void
      */
     public function component($path, $alias = null)
@@ -484,7 +484,7 @@ class BladeCompiler extends Compiler implements CompilerInterface
      * Register an include alias directive.
      *
      * @param  string  $path
-     * @param  string|null  $alias
+     * @param  string  $alias
      * @return void
      */
     public function include($path, $alias = null)

@@ -27,6 +27,6 @@ class RolController extends Controller
             return view('rol.index',["roles"=>$roles,"buscarTexto"=>$sql]);
             //return $roles;
         }
-
+       
     }
 }

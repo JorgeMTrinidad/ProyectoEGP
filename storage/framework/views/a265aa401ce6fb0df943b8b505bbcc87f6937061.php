@@ -44,9 +44,9 @@
     </div>
 
      <div class="form-group row">
-                <label class="col-md-3 form-control-label" for="nombre">Precio Venta</label>
+                <label class="col-md-3 form-control-label" for="nombre">Precio</label>
                 <div class="col-md-9">
-                    <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio venta" required pattern="^[a-zA-Z_áéíóúñ\s]{0,100}$">
+                    <input type="number" id="precio_venta" name="precio_venta" class="form-control" placeholder="Ingrese el precio" required pattern="^[a-zA-Z_áéíóúñ\s]{0,100}$">
                 </div>
     </div>
 

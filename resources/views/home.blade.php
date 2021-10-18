@@ -7,9 +7,9 @@
             </ol>
             <svg viewBox="0 0 960 300">
                 <symbol id="s-text">
-                    <text text-anchor="middle" x="50%" y="80%">Proyecto EGP</text>
+                    <text text-anchor="middle" x="50%" y="80%">Multiservicios Vimega</text>
                 </symbol>
-
+            
                 <g class = "g-ants">
                     <use xlink:href="#s-text" class="text-copy"></use>
                     <use xlink:href="#s-text" class="text-copy"></use>
@@ -28,7 +28,7 @@ html, body{
 }
 
 body{
-  background: #57595a;
+  background: #2e85ad;
   font-family: Arial;
 }
 
@@ -55,17 +55,17 @@ svg {
 }
 
 .text-copy:nth-child(2){
-	stroke: #000000;
+	stroke: #2b2b2b;
 	animation-delay: -2s;
 }
 
 .text-copy:nth-child(3){
-	stroke: #020202;
+	stroke: #4d4d4d;
 	animation-delay: -3s;
 }
 
 .text-copy:nth-child(4){
-	stroke: #f8f8f8;
+	stroke: #a0a09e;
 	animation-delay: -4s;
 }
 
@@ -78,8 +78,8 @@ svg {
 	100% {stroke-dashoffset: -35%;}
 }
             </style>
-
-
+           
+                
         </main>
 
 @endsection

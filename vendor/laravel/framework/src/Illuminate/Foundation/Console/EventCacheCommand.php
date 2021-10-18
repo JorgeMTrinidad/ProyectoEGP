@@ -48,9 +48,9 @@ class EventCacheCommand extends Command
         $events = [];
 
         foreach ($this->laravel->getProviders(EventServiceProvider::class) as $provider) {
-            $providerEvents = array_merge_recursive($provider->shouldDiscoverEvents() ? $provider->discoverEvents() : [], $provider->listens());
+            $providerEvents = array_merge($provider->discoverEvents(), $provider->listens());
 
-            $events[get_class($provider)] = $providerEvents;
+            $events = array_merge_recursive($events, $providerEvents);
         }
 
         return $events;

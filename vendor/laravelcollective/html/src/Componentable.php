@@ -48,7 +48,7 @@ trait Componentable
      * @param        $name
      * @param  array $arguments
      *
-     * @return HtmlString
+     * @return \Illuminate\Contracts\View\View
      */
     protected function renderComponent($name, array $arguments)
     {

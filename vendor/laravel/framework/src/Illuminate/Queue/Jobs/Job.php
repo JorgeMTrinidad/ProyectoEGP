@@ -48,8 +48,6 @@ abstract class Job
 
     /**
      * The name of the connection the job belongs to.
-     *
-     * @var string
      */
     protected $connectionName;
 

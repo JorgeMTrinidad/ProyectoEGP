@@ -11,7 +11,6 @@
 namespace Carbon\Traits;
 
 use Carbon\CarbonInterface;
-use ReturnTypeWillChange;
 
 /**
  * Trait Modifiers.
@@ -59,7 +58,7 @@ trait Modifiers
     /**
      * Modify to midday, default to self::$midDayAt
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function midDay()
     {
@@ -67,24 +66,22 @@ trait Modifiers
     }
 
     /**
-     * Modify to the next occurrence of a given modifier such as a day of
-     * the week. If no modifier is provided, modify to the next occurrence
-     * of the current day of the week. Use the supplied constants
+     * Modify to the next occurrence of a given day of the week.
+     * If no dayOfWeek is provided, modify to the next occurrence
+     * of the current day of the week.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param string|int|null $modifier
+     * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return static|CarbonInterface
      */
-    public function next($modifier = null)
+    public function next($dayOfWeek = null)
     {
-        if ($modifier === null) {
-            $modifier = $this->dayOfWeek;
+        if ($dayOfWeek === null) {
+            $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->change(
-            'next '.(\is_string($modifier) ? $modifier : static::$days[$modifier])
-        );
+        return $this->startOfDay()->modify('next '.static::$days[$dayOfWeek]);
     }
 
     /**
@@ -93,11 +90,11 @@ trait Modifiers
      * @param bool $weekday
      * @param bool $forward
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     private function nextOrPreviousDay($weekday = true, $forward = true)
     {
-        /** @var CarbonInterface $date */
+        /** @var CarbonInterface $step */
         $date = $this;
         $step = $forward ? 1 : -1;
 
@@ -111,7 +108,7 @@ trait Modifiers
     /**
      * Go forward to the next weekday.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function nextWeekday()
     {
@@ -121,7 +118,7 @@ trait Modifiers
     /**
      * Go backward to the previous weekday.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function previousWeekday()
     {
@@ -131,7 +128,7 @@ trait Modifiers
     /**
      * Go forward to the next weekend day.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function nextWeekendDay()
     {
@@ -141,7 +138,7 @@ trait Modifiers
     /**
      * Go backward to the previous weekend day.
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function previousWeekendDay()
     {
@@ -149,24 +146,22 @@ trait Modifiers
     }
 
     /**
-     * Modify to the previous occurrence of a given modifier such as a day of
-     * the week. If no dayOfWeek is provided, modify to the previous occurrence
-     * of the current day of the week. Use the supplied constants
+     * Modify to the previous occurrence of a given day of the week.
+     * If no dayOfWeek is provided, modify to the previous occurrence
+     * of the current day of the week.  Use the supplied constants
      * to indicate the desired dayOfWeek, ex. static::MONDAY.
      *
-     * @param string|int|null $modifier
+     * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return static|CarbonInterface
      */
-    public function previous($modifier = null)
+    public function previous($dayOfWeek = null)
     {
-        if ($modifier === null) {
-            $modifier = $this->dayOfWeek;
+        if ($dayOfWeek === null) {
+            $dayOfWeek = $this->dayOfWeek;
         }
 
-        return $this->change(
-            'last '.(\is_string($modifier) ? $modifier : static::$days[$modifier])
-        );
+        return $this->startOfDay()->modify('last '.static::$days[$dayOfWeek]);
     }
 
     /**
@@ -177,7 +172,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function firstOfMonth($dayOfWeek = null)
     {
@@ -198,7 +193,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function lastOfMonth($dayOfWeek = null)
     {
@@ -224,11 +219,11 @@ trait Modifiers
      */
     public function nthOfMonth($nth, $dayOfWeek)
     {
-        $date = $this->avoidMutation()->firstOfMonth();
+        $date = $this->copy()->firstOfMonth();
         $check = $date->rawFormat('Y-m');
         $date = $date->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return $date->rawFormat('Y-m') === $check ? $this->modify((string) $date) : false;
+        return $date->rawFormat('Y-m') === $check ? $this->modify($date) : false;
     }
 
     /**
@@ -239,7 +234,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function firstOfQuarter($dayOfWeek = null)
     {
@@ -254,7 +249,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function lastOfQuarter($dayOfWeek = null)
     {
@@ -274,12 +269,12 @@ trait Modifiers
      */
     public function nthOfQuarter($nth, $dayOfWeek)
     {
-        $date = $this->avoidMutation()->day(1)->month($this->quarter * static::MONTHS_PER_QUARTER);
+        $date = $this->copy()->day(1)->month($this->quarter * static::MONTHS_PER_QUARTER);
         $lastMonth = $date->month;
         $year = $date->year;
         $date = $date->firstOfQuarter()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return ($lastMonth < $date->month || $year !== $date->year) ? false : $this->modify((string) $date);
+        return ($lastMonth < $date->month || $year !== $date->year) ? false : $this->modify($date);
     }
 
     /**
@@ -290,7 +285,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function firstOfYear($dayOfWeek = null)
     {
@@ -305,7 +300,7 @@ trait Modifiers
      *
      * @param int|null $dayOfWeek day of the week default null
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function lastOfYear($dayOfWeek = null)
     {
@@ -325,9 +320,9 @@ trait Modifiers
      */
     public function nthOfYear($nth, $dayOfWeek)
     {
-        $date = $this->avoidMutation()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
+        $date = $this->copy()->firstOfYear()->modify('+'.$nth.' '.static::$days[$dayOfWeek]);
 
-        return $this->year === $date->year ? $this->modify((string) $date) : false;
+        return $this->year === $date->year ? $this->modify($date) : false;
     }
 
     /**
@@ -336,7 +331,7 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|null $date
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function average($date = null)
     {
@@ -349,7 +344,7 @@ trait Modifiers
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function closest($date1, $date2)
     {
@@ -362,7 +357,7 @@ trait Modifiers
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date1
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date2
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function farthest($date1, $date2)
     {
@@ -374,7 +369,7 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function min($date = null)
     {
@@ -390,7 +385,7 @@ trait Modifiers
      *
      * @see min()
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function minimum($date = null)
     {
@@ -402,7 +397,7 @@ trait Modifiers
      *
      * @param \Carbon\Carbon|\DateTimeInterface|mixed $date
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function max($date = null)
     {
@@ -418,52 +413,10 @@ trait Modifiers
      *
      * @see max()
      *
-     * @return static
+     * @return static|CarbonInterface
      */
     public function maximum($date = null)
     {
         return $this->max($date);
-    }
-
-    /**
-     * Calls \DateTime::modify if mutable or \DateTimeImmutable::modify else.
-     *
-     * @see https://php.net/manual/en/datetime.modify.php
-     */
-    #[ReturnTypeWillChange]
-    public function modify($modify)
-    {
-        return parent::modify((string) $modify);
-    }
-
-    /**
-     * Similar to native modify() method of DateTime but can handle more grammars.
-     *
-     * @example
-     * ```
-     * echo Carbon::now()->change('next 2pm');
-     * ```
-     *
-     * @link https://php.net/manual/en/datetime.modify.php
-     *
-     * @param string $modifier
-     *
-     * @return static
-     */
-    public function change($modifier)
-    {
-        return $this->modify(preg_replace_callback('/^(next|previous|last)\s+(\d{1,2}(h|am|pm|:\d{1,2}(:\d{1,2})?))$/i', function ($match) {
-            $match[2] = str_replace('h', ':00', $match[2]);
-            $test = $this->avoidMutation()->modify($match[2]);
-            $method = $match[1] === 'next' ? 'lt' : 'gt';
-            $match[1] = $test->$method($this) ? $match[1].' day' : 'today';
-
-            return $match[1].' '.$match[2];
-        }, strtr(trim($modifier), [
-            ' at ' => ' ',
-            'just now' => 'now',
-            'after tomorrow' => 'tomorrow +1 day',
-            'before yesterday' => 'yesterday -1 day',
-        ])));
     }
 }

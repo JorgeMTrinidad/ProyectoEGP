@@ -5,14 +5,20 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Sistema Compras-Ventas con Laravel y Vue Js- webtraining-it.com">
-    <meta name="keyword" content="Sistema Compras-Ventas con Laravel y Vue Js">
-    <title>Proyecto</title>
+    <meta name="description" content="Sistema Compras-Ventas con Laravel">
+    <meta name="keyword" content="Sistema Compras-Ventas con Laravel">
+    <title>Repuestos Vimega</title>
     <!-- Icons -->
     <link href="<?php echo e(asset('css/font-awesome.min.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/simple-line-icons.min.css')); ?>" rel="stylesheet">
+    <!--Bootstrap-->
+    <link href="<?php echo e(asset('css/bootstrap-select.min.css')); ?>" rel="stylesheet">
     <!-- Main styles for this application -->
     <link href="<?php echo e(asset('css/style.css')); ?>" rel="stylesheet">
+
+     <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js">-->
+
+
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden">
@@ -27,7 +33,7 @@
         </button>
         <ul class="nav navbar-nav d-md-down-none">
             <li class="nav-item px-3">
-                <a class="nav-link" href="#">Dashbord</a>
+                <a class="nav-link" href="#">Menú Principal</a>
             </li>
 
         </ul>
@@ -35,19 +41,19 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img src="img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+                    <img src="/img/avatars/avatar.png" class="img-avatar" alt="admin@bootstrapmaster.com">
                     <span class="d-md-down-none"><?php echo e(Auth::user()->usuario); ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-header text-center">
                         <strong>Cuenta</strong>
                     </div>
-                    <a class="dropdown-item" href=<?php echo e(route('logout')); ?>""
+                    <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-lock"></i> Cerrar sesión</a>
 
                     <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
-                        <?php echo e(csrf_field()); ?>
+                    <?php echo e(csrf_field()); ?>
 
                     </form>
                 </div>
@@ -57,7 +63,7 @@
 
     <div class="app-body">
 
-        <?php if(Auth::check()): ?>
+       <?php if(Auth::check()): ?>
             <?php if(Auth::user()->idrol == 1): ?>
                 <?php echo $__env->make('plantilla.sidebarsupervisor', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
             <?php elseif(Auth::user()->idrol == 2): ?>
@@ -72,29 +78,33 @@
 
         <!-- Contenido Principal -->
 
-            <?php echo $__env->yieldContent('contenido'); ?>
+           <?php echo $__env->yieldContent('contenido'); ?>
 
         <!-- /Fin del contenido principal -->
     </div>
 
     <footer class="app-footer">
-        <span><a href="http://www.webtraining-it.com/">webtraining-it.com</a> &copy; 2019</span>
-        <span class="ml-auto">Desarrollado por <a href="http://www.webtraining-it.com/">webtraining-it.com</a></span>
+        <span>Desarrollado por <a>Jorge Mario Trinidad Salguero</a></span>
+        <span class="ml-auto"><a>jorgemtrinidad@outlook.es</a> &copy; 2021</span>
     </footer>
 
     <!-- Bootstrap and necessary plugins -->
     <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
+    <?php echo $__env->yieldPushContent('scripts'); ?>
     <script src="<?php echo e(asset('js/popper.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/bootstrap.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/bootstrap-select.min.js')); ?>"></script>
     <script src="<?php echo e(asset('js/pace.min.js')); ?>"></script>
     <!-- Plugins and scripts required by all views -->
     <script src="<?php echo e(asset('js/Chart.min.js')); ?>"></script>
     <!-- GenesisUI main scripts -->
     <script src="<?php echo e(asset('js/template.js')); ?>"></script>
+    <script src="<?php echo e(asset('js/sweetalert2.all.min.js')); ?>"></script>
 
     <script>
-        /*EDITAR CATEGORIA EN VENTANA MODAL*/
-        $('#abrirmodalEditar').on('show.bs.modal', function (event) {
+
+         /*EDITAR CATEGORIA EN VENTANA MODAL*/
+         $('#abrirmodalEditar').on('show.bs.modal', function (event) {
 
         //console.log('modal abierto');
 
@@ -127,7 +137,6 @@
 
         /*FIN ventana modal para cambiar estado de la categoria*/
 
-
          /*EDITAR PRODUCTO EN VENTANA MODAL*/
          $('#abrirmodalEditar').on('show.bs.modal', function (event) {
 
@@ -139,7 +148,7 @@
         var nombre_modal_editar = button.data('nombre')
         var precio_venta_modal_editar = button.data('precio_venta')
         var codigo_modal_editar = button.data('codigo')
-        var stock_modal_editar = button.data('stock')
+        var stock2_modal_editar = button.data('stock2')
         //var imagen_modal_editar = button.data('imagen1')
         var id_producto = button.data('id_producto')
         var modal = $(this)
@@ -149,7 +158,7 @@
         modal.find('.modal-body #nombre').val(nombre_modal_editar);
         modal.find('.modal-body #precio_venta').val(precio_venta_modal_editar);
         modal.find('.modal-body #codigo').val(codigo_modal_editar);
-        modal.find('.modal-body #stock').val(stock_modal_editar);
+        modal.find('.modal-body #stock2').val(stock2_modal_editar);
        // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
         modal.find('.modal-body #id_producto').val(id_producto);
         })
@@ -170,8 +179,8 @@
 
         /*FIN ventana modal para cambiar estado del producto*/
 
-        /*EDITAR PROVEEDOR EN VENTANA MODAL*/
-        $('#abrirmodalEditar').on('show.bs.modal', function (event) {
+         /*EDITAR PROVEEDOR EN VENTANA MODAL*/
+         $('#abrirmodalEditar').on('show.bs.modal', function (event) {
 
         //console.log('modal abierto');
         /*el button.data es lo que está en el button de editar*/
@@ -196,7 +205,7 @@
         modal.find('.modal-body #id_proveedor').val(id_proveedor);
         })
 
-         /*EDITAR MAESTRO DE OBRAS EN VENTANA MODAL*/
+         /*EDITAR CLIENTE EN VENTANA MODAL*/
          $('#abrirmodalEditar').on('show.bs.modal', function (event) {
 
         //console.log('modal abierto');
@@ -204,6 +213,7 @@
         var button = $(event.relatedTarget)
 
         var nombre_modal_editar = button.data('nombre')
+        var tipo_documento_modal_editar = button.data('tipo_documento')
         var num_documento_modal_editar = button.data('num_documento')
         var direccion_modal_editar = button.data('direccion')
         var telefono_modal_editar = button.data('telefono')
@@ -213,12 +223,14 @@
         // modal.find('.modal-title').text('New message to ' + recipient)
         /*los # son los id que se encuentran en el formulario*/
         modal.find('.modal-body #nombre').val(nombre_modal_editar);
+        modal.find('.modal-body #tipo_documento').val(tipo_documento_modal_editar);
         modal.find('.modal-body #num_documento').val(num_documento_modal_editar);
         modal.find('.modal-body #direccion').val(direccion_modal_editar);
         modal.find('.modal-body #telefono').val(telefono_modal_editar);
         modal.find('.modal-body #email').val(email_modal_editar);
         modal.find('.modal-body #id_maestroobras').val(id_maestroobras);
         })
+
 
          /*EDITAR USUARIO EN VENTANA MODAL*/
          $('#abrirmodalEditar').on('show.bs.modal', function (event) {
@@ -269,9 +281,44 @@
 
         /*FIN ventana modal para cambiar estado del usuario*/
 
+         /*INICIO ventana modal para cambiar estado de Ingreso*/
+
+        $('#cambiarEstadoIngreso').on('show.bs.modal', function (event) {
+
+       //console.log('modal abierto');
+
+       var button = $(event.relatedTarget)
+       var id_ingreso = button.data('id_ingreso')
+       var modal = $(this)
+       // modal.find('.modal-title').text('New message to ' + recipient)
+
+       modal.find('.modal-body #id_ingreso').val(id_ingreso);
+       })
+
+       /*FIN ventana modal para cambiar estado de la Ingreso*/
+
+
+
+       /*INICIO ventana modal para cambiar estado de Venta*/
+
+       $('#cambiarEstadoVenta').on('show.bs.modal', function (event) {
+
+        //console.log('modal abierto');
+
+        var button = $(event.relatedTarget)
+        var id_venta = button.data('id_venta')
+        var modal = $(this)
+        // modal.find('.modal-title').text('New message to ' + recipient)
+
+        modal.find('.modal-body #id_venta').val(id_venta);
+        })
+
+        /*FIN ventana modal para cambiar estado de la venta*/
 
 
     </script>
+
+
 </body>
 
 </html>
