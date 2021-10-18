@@ -339,7 +339,7 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
     /**
      * Get the JSON payload for the request.
      *
-     * @param  string|null  $key
+     * @param  string  $key
      * @param  mixed   $default
      * @return \Symfony\Component\HttpFoundation\ParameterBag|mixed
      */
@@ -422,6 +422,8 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
             return $request;
         }
 
+        $content = $request->content;
+
         $newRequest = (new static)->duplicate(
             $request->query->all(), $request->request->all(), $request->attributes->all(),
             $request->cookies->all(), $request->files->all(), $request->server->all()
@@ -429,7 +431,7 @@ class Request extends SymfonyRequest implements Arrayable, ArrayAccess
 
         $newRequest->headers->replace($request->headers->all());
 
-        $newRequest->content = $request->content;
+        $newRequest->content = $content;
 
         $newRequest->request = $newRequest->getInputSource();
 

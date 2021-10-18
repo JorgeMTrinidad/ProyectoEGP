@@ -61,6 +61,7 @@ class ProductoController extends Controller
         $producto->precio_venta = $request->precio_venta;
         $producto->stock = '0';
         $producto->condicion = '1';
+
         $producto->save();
         return Redirect::to("producto");
     }
@@ -83,6 +84,7 @@ class ProductoController extends Controller
         $producto->precio_venta = $request->precio_venta;
         $producto->stock = '0';
         $producto->condicion = '1';
+        
         $producto->save();
         return Redirect::to("producto");
     }
@@ -113,4 +115,3 @@ class ProductoController extends Controller
             }
     }
 }
-

@@ -63,7 +63,7 @@ abstract class Queue
      *
      * @param  array   $jobs
      * @param  mixed   $data
-     * @param  string|null  $queue
+     * @param  string  $queue
      * @return void
      */
     public function bulk($jobs, $data = '', $queue = null)
@@ -76,7 +76,7 @@ abstract class Queue
     /**
      * Create a payload string from the given job and data.
      *
-     * @param  string|object  $job
+     * @param  string  $job
      * @param  string  $queue
      * @param  mixed   $data
      * @return string
@@ -99,7 +99,7 @@ abstract class Queue
     /**
      * Create a payload array from the given job and data.
      *
-     * @param  string|object  $job
+     * @param  mixed  $job
      * @param  string  $queue
      * @param  mixed  $data
      * @return array
@@ -114,7 +114,7 @@ abstract class Queue
     /**
      * Create a payload for an object-based queue handler.
      *
-     * @param  object  $job
+     * @param  mixed  $job
      * @param  string  $queue
      * @return array
      */
@@ -144,7 +144,7 @@ abstract class Queue
     /**
      * Get the display name for the given job.
      *
-     * @param  object  $job
+     * @param  mixed  $job
      * @return string
      */
     protected function getDisplayName($job)

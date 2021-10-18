@@ -31,20 +31,19 @@ class UserController extends Controller
              /*listar los roles en ventana modal*/
             $roles=DB::table('roles')
             ->select('id','nombre','descripcion')
-            ->where('condicion','=','1')->get();
+            ->where('condicion','=','1')->get(); 
 
             return view('user.index',["usuarios"=>$usuarios,"roles"=>$roles,"buscarTexto"=>$sql]);
-
+        
             //return $usuarios;
-        }
+        }      
 
-
+       
     }
 
     public function store(Request $request)
     {
         //
-
         $user= new User();
         $user->nombre = $request->nombre;
         $user->tipo_documento = $request->tipo_documento;
@@ -55,16 +54,18 @@ class UserController extends Controller
         $user->usuario = $request->usuario;
         $user->password = bcrypt( $request->password);
         $user->condicion = '1';
-        $user->idrol = $request->id_rol;
+        $user->idrol = $request->id_rol;  
+          
 
             $user->save();
-            return Redirect::to("user");
+            return Redirect::to("user"); 
+        
     }
 
     public function update(Request $request)
     {
         //
-
+        
         $user= User::findOrFail($request->id_usuario);
         $user->nombre = $request->nombre;
         $user->tipo_documento = $request->tipo_documento;
@@ -75,9 +76,9 @@ class UserController extends Controller
         $user->usuario = $request->usuario;
         $user->password = bcrypt($request->password);
         $user->condicion = '1';
-        $user->idrol = $request->id_rol;
-
-
+        $user->idrol = $request->id_rol;   
+           
+          
           $user->save();
           return Redirect::to("user");
     }
@@ -87,7 +88,7 @@ class UserController extends Controller
     {
         //
         $user= User::findOrFail($request->id_usuario);
-
+         
          if($user->condicion=="1"){
 
                 $user->condicion= '0';

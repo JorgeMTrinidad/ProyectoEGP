@@ -35,7 +35,7 @@
                                     <th>Categoria</th>
                                     <th>Producto</th>
                                     <th>Codigo</th>
-                                    <th>Precio de Venta</th>
+                                    <th>Precio Venta (Q)
                                     <th>Stock</th>
                                     <th>Estado</th>
                                     <th>Editar</th>

@@ -18,7 +18,6 @@
  * - Hossein Jabbari
  * - nimamo
  * - hafezdivandari
- * - Hassan Pezeshk (hpez)
  */
 return [
     'year' => ':count سال',
@@ -34,24 +33,17 @@ return [
     'a_day' => 'یک روز'.'|:count '.'روز',
     'd' => ':count روز',
     'hour' => ':count ساعت',
-    'a_hour' => 'یک ساعت'.'|:count '.'ساعت',
+    'a_hour' => 'یک دقیقهیک ساعت'.'|:count '.'ساعت',
     'h' => ':count ساعت',
     'minute' => ':count دقیقه',
     'a_minute' => 'یک دقیقه'.'|:count '.'دقیقه',
     'min' => ':count دقیقه',
-    'second' => ':count ثانیه',
+    'second' => ':count ثانیه|چند ثانیه',
     's' => ':count ثانیه',
     'ago' => ':time پیش',
-    'from_now' => ':time دیگر',
+    'from_now' => 'در :time',
     'after' => ':time پس از',
     'before' => ':time پیش از',
-    'diff_now' => 'اکنون',
-    'diff_today' => 'امروز',
-    'diff_today_regexp' => 'امروز(?:\\s+ساعت)?',
-    'diff_yesterday' => 'دیروز',
-    'diff_yesterday_regexp' => 'دیروز(?:\\s+ساعت)?',
-    'diff_tomorrow' => 'فردا',
-    'diff_tomorrow_regexp' => 'فردا(?:\\s+ساعت)?',
     'formats' => [
         'LT' => 'OH:Om',
         'LTS' => 'OH:Om:Os',
