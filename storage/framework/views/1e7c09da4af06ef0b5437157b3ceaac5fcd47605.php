@@ -14,6 +14,16 @@
                         <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
                         </button>
+
+                        <a href="<?php echo e(url('listarProductoPdf')); ?>" target="_blank">
+                            <button type="button" class="btn btn-success btn-lg">
+                                <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Picking List
+
+                            </button>
+
+                        </a>
+
+
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -54,6 +64,8 @@
                                     <td><?php echo e($prod->codigo); ?></td>
                                     <td><?php echo e($prod->precio_venta); ?></td>
                                     <td><?php echo e($prod->stock); ?></td>
+
+
 
 
                                     <td>

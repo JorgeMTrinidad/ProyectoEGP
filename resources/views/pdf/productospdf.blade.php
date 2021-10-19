@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de Productos</title>
+    <title>Picking List</title>
     <style>
         body {
             margin: 0;
@@ -82,7 +82,7 @@
 </head>
 <body>
     <div>
-        <h3>MULTISERVICIOS VIMEGA <span class="derecha">{{now()}}</span></h3>
+        <h3>Picking List <span class="derecha">{{now()}}</span></h3>
     </div>
     <div>
         <table class="table table-bordered table-striped table-sm">
@@ -92,7 +92,6 @@
                     <th>Producto</th>
                     <th>Marca</th>
                     <th>Código</th>
-                    <th>Faltantes</th>
 
                 </tr>
             </thead>
@@ -103,7 +102,6 @@
                     <td>{{$a->nombre}}</td>
                     <td>{{$a->marca}}</td>
                     <td>{{$a->codigo}}</td>
-                    <td>{{number_format($a->max_existencia-$a->stock)}}
                 </tr>
                 @endforeach
             </tbody>

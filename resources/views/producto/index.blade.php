@@ -15,6 +15,16 @@
                         <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
                         </button>
+
+                        <a href="{{url('listarProductoPdf')}}" target="_blank">
+                            <button type="button" class="btn btn-success btn-lg">
+                                <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Picking List
+
+                            </button>
+
+                        </a>
+
+
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -53,6 +63,8 @@
                                     <td>{{$prod->codigo}}</td>
                                     <td>{{$prod->precio_venta}}</td>
                                     <td>{{$prod->stock}}</td>
+
+
 
 
                                     <td>

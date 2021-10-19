@@ -50,8 +50,8 @@
                         <select class="form-control" name="tipo_identificacion" id="tipo_identificacion" required>
 
                             <option value="0" disabled>Seleccione</option>
-                            <option value="FACTURA">Ingreso</option>
-                            <option value="RECIBO">Ingreso</option>
+                            <option value="FACTURA">Factura</option>
+                            <option value="RECIBO">Recibo</option>
 
 
                         </select>

@@ -56,7 +56,6 @@ class ProductoController extends Controller
         //
         $producto= new Producto();
         $producto->idcategoria = $request->id;
-        $producto->codigo = $request->codigo;
         $producto->nombre = $request->nombre;
         $producto->precio_venta = $request->precio_venta;
         $producto->stock = '0';
@@ -84,7 +83,7 @@ class ProductoController extends Controller
         $producto->precio_venta = $request->precio_venta;
         $producto->stock = '0';
         $producto->condicion = '1';
-        
+
         $producto->save();
         return Redirect::to("producto");
     }
@@ -114,4 +113,19 @@ class ProductoController extends Controller
 
             }
     }
+
+    public function listarPdf(){
+
+
+        $productos = Producto::join('categorias','productos.idcategoria','=','categorias.id')
+        ->select('productos.id','productos.idcategoria','productos.codigo','productos.nombre','categorias.nombre as nombre_categoria','productos.stock','productos.condicion')
+        ->orderBy('productos.nombre', 'desc')->get();
+
+
+        $cont=Producto::count();
+
+        $pdf= \PDF::loadView('pdf.productospdf',['productos'=>$productos,'cont'=>$cont]);
+        return $pdf->download('PickingList.pdf');
+
+}
 }

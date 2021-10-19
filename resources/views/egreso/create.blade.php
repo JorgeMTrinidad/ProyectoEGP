@@ -53,15 +53,6 @@
             </div>
 
 
-            <div class="form-group row">
-
-                <div class="col-md-8">
-                        <label class="form-control-label" for="num_egreso">Número Egreso</label>
-
-                        <input type="text" id="num_egreso" required name="num_egreso" class="form-control" placeholder="Ingrese el número egreso" pattern="[0-9]{0,15}">
-                </div>
-            </div>
-
             <br/><br/>
 
             <div class="form-group row border">

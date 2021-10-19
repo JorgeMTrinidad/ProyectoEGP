@@ -72,7 +72,6 @@ class EgresoController extends Controller
                  $egreso->idmaestroobras = $request->id_maestroobras;
                  $egreso->idusuario = Auth::user()->id;
                  $egreso->tipo_identificacion = $request->tipo_identificacion;
-                 $egreso->num_egreso = $request->num_egreso;
                  $egreso->fecha_egreso = $mytime->toDateString();
                  $egreso->total=$request->total_pagar;
                  $egreso->estado = 'Registrado';
