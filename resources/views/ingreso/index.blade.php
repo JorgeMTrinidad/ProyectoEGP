@@ -60,7 +60,7 @@
 
                                      <a href="{{URL::action('IngresoController@show',$comp->id)}}">
                                        <button type="button" class="btn btn-warning btn-md">
-                                         <i class="fa fa-eye fa-2x"></i> Ver detalle
+                                         <i class="fa fa-eye fa-2x"></i> Verificar ingreso
                                        </button> &nbsp;
 
                                      </a>
