@@ -45,6 +45,9 @@
                                     <th>Tipo de identificación</th>
                                     <th>Ingresodor</th>
                                     <th>Total (Q)</th>
+                                    @if(session('user_roll')!==1)
+                                        <th>revisión</th>
+                                    @endif
                                     <th>Estado</th>
                                     <th>Cambiar Estado</th>
                                     <th>Descargar Reporte</th>
@@ -52,94 +55,77 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                               @foreach($ingresos as $comp)
-
+                                @php
+                                  $data=App\DetalleIngreso::where('idingreso',$comp->id)->where('revision','=','INCORRECTO')->first();
+                                  $auxiliarData=App\DetalleIngreso::where('idingreso',$comp->id)->where('revision','=','INCORRECTO')->first();
+                                @endphp
+                                @if(session('user_roll')!==1)
+                                  {{$data=null}}
+                                @endif
+                                @if($data===null)
                                 <tr>
-                                    <td>
-
-                                     <a href="{{URL::action('IngresoController@show',$comp->id)}}">
-                                       <button type="button" class="btn btn-warning btn-md">
-                                         <i class="fa fa-eye fa-2x"></i> Ver detalle
-                                       </button> &nbsp;
-
-                                     </a>
-                                   </td>
-
-                                    <td>{{$comp->fecha_ingreso}}</td>
-                                    <td>{{$comp->num_ingreso}}</td>
-                                    <td>{{$comp->proveedor}}</td>
-                                    <td>{{$comp->tipo_identificacion}}</td>
-                                    <td>{{$comp->nombre}}</td>
-                                    <td>Q{{number_format($comp->total,2)}}</td>
-
-                                    <td>
-
-                                      @if($comp->estado=="Registrado")
-                                        <button type="button" class="btn btn-success btn-md">
-
-                                          <i class="fa fa-check fa-2x"></i> Registrado
-                                        </button>
-
-                                      @else
-
-                                        <button type="button" class="btn btn-danger btn-md">
-
-                                          <i class="fa fa-check fa-2x"></i> Anulado
-                                        </button>
-
-                                       @endif
-
+                                      <td>
+                                      <a href="{{URL::action('IngresoController@show',$comp->id)}}">
+                                        <button type="button" class="btn btn-warning btn-md">
+                                          <i class="fa fa-eye fa-2x"></i> Ver detalle
+                                        </button> &nbsp;
+                                      </a>
                                     </td>
-
-
-                                    <td>
-
-
-
-                                            @if($comp->estado=="Registrado")
-
-                                                <button type="button" class="btn btn-danger btn-sm" data-id_ingreso="{{$comp->id}}" data-toggle="modal" data-target="#cambiarEstadoIngreso">
-                                                    <i class="fa fa-times fa-2x"></i> Anular Ingreso
-                                                </button>
-
-                                                @else
-
-                                                <button type="button" class="btn btn-success btn-sm">
-                                                    <i class="fa fa-lock fa-2x"></i> Anulado
-                                                </button>
-
+                                      <td>{{$comp->fecha_ingreso}}</td>
+                                      <td>{{$comp->num_ingreso}}</td>
+                                      <td>{{$comp->proveedor}}</td>
+                                      <td>{{$comp->tipo_identificacion}}</td>
+                                      <td>{{$comp->nombre}}</td>
+                                      <td>Q{{number_format($comp->total,2)}}</td>
+                                      @if(session('user_roll')!==1)
+                                        <td>
+                                            @if($auxiliarData===null)
+                                                CORRECTO
+                                            @else
+                                                INCORRECTO
                                             @endif
-
+                                        </td>
+                                      @endif
+                                      <td>
+                                        @if($comp->estado=="Registrado")
+                                          <button type="button" class="btn btn-success btn-md">
+                                            <i class="fa fa-check fa-2x"></i> Registrado
+                                          </button>
+                                        @else
+                                          <button type="button" class="btn btn-danger btn-md">
+                                            <i class="fa fa-check fa-2x"></i> Anulado
+                                          </button>
+                                        @endif
+                                      </td>
+                                      <td>
+                                        @if($comp->estado=="Registrado")
+                                          <button type="button" class="btn btn-danger btn-sm" data-id_ingreso="{{$comp->id}}" data-toggle="modal" data-target="#cambiarEstadoIngreso">
+                                            <i class="fa fa-times fa-2x"></i> Anular Ingreso
+                                          </button>
+                                          @else
+                                          <button type="button" class="btn btn-success btn-sm">
+                                            <i class="fa fa-lock fa-2x"></i> Anulado
+                                          </button>
+                                        @endif
+                                      </td>
+                                      <td>
+                                        <a href="{{url('pdfIngreso',$comp->id)}}" target="_blank">
+                                            <button type="button" class="btn btn-info btn-sm">
+                                              <i class="fa fa-file fa-2x"></i> Descargar PDF
+                                            </button> &nbsp;
+                                        </a>
                                     </td>
-
-                                    <td>
-
-                                       <a href="{{url('pdfIngreso',$comp->id)}}" target="_blank">
-
-                                          <button type="button" class="btn btn-info btn-sm">
-
-                                            <i class="fa fa-file fa-2x"></i> Descargar PDF
-                                          </button> &nbsp;
-
-                                       </a>
-
-                                   </td>
-                                </tr>
-
+                                  </tr>
+                                  @endif
                                 @endforeach
-
                             </tbody>
                         </table>
-
                         {{$ingresos->render()}}
-
                     </div>
                 </div>
                 <!-- Fin ejemplo de tabla Listado -->
             </div>
-
-
         <!-- Inicio del modal cambiar estado de ingreso -->
          <div class="modal fade" id="cambiarEstadoIngreso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-danger" role="document">
@@ -172,8 +158,7 @@
                    </div>
                 <!-- /.modal-dialog -->
              </div>
-            <!-- Fin del modal Eliminar -->
-
-
-        </main>
+        </div>
+    	<!-- Fin del modal Eliminar -->
+    </main>
 @endsection

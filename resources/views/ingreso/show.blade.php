@@ -51,6 +51,9 @@
                         <th>Precio (Q)</th>
                         <th>Cantidad</th>
                         <th>Revision</th>
+                        @if(session('user_roll')!==1)
+                            <th>revisión</th>
+                        @endif
                         <th>SubTotal (Q)</th>
                     </tr>
                 </thead>
@@ -84,6 +87,27 @@
                       <td>{{$det->producto}}</td>
                       <td>${{$det->precio}}</td>
                       <td>{{$det->cantidad}}</td>
+                      @if(session('user_roll')!==1)
+                        <td>
+                            @if($det->revision=='CORRECTO')
+                            <button type="button" class="btn btn-success btn-md" onclick="event.preventDefault(); document.getElementById('revision-correct-form{{$det->id}}').submit();">
+                                <form id="revision-correct-form{{$det->id}}" action="{{route('revision',$det->id)}}" method="POST" style="display: none;">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="revision" value="INCORRECTO">
+                                </form>
+                                <i class="fa fa-check fa-2x"></i> Correct
+                            </button>
+                            @else
+                            <button type="button" class="btn btn-danger btn-md" onclick="event.preventDefault(); document.getElementById('revision-incorrect-form{{$det->id}}').submit();">
+                            <form id="revision-incorrect-form{{$det->id}}" action="{{route('revision',$det->id)}}" method="POST" style="display: none;">
+                                <input type="hidden" name="revision" value="CORRECTO">
+                                {{csrf_field()}}
+                            </form>
+                                <i class="fa fa-times fa-2x"></i> Incorrect
+                            </button>
+                            @endif
+                        </td>
+                      @endif
                       <td>{{$det->revision}}</td>
                       <td>${{number_format($det->cantidad*$det->precio,2)}}</td>
 

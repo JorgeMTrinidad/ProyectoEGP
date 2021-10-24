@@ -31,6 +31,12 @@
                          </form>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url('ingreso')}}" onclick="event.preventDefault(); document.getElementById('ingreso-form').submit();"><i class="fa fa-shopping-cart"></i> Ingresos</a>
+                        <form id="ingreso-form" action="{{url('ingreso')}}" method="GET" style="display: none;">
+                            {{csrf_field()}}
+                         </form>
+                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('egreso')}}" onclick="event.preventDefault(); document.getElementById('egreso-form').submit();"><i class="fa fa-suitcase"></i> Egresos</a>
