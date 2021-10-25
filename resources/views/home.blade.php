@@ -7,9 +7,9 @@
             </ol>
             <svg viewBox="0 0 960 300">
                 <symbol id="s-text">
-                    <text text-anchor="middle" x="50%" y="80%">Multiservicios Vimega</text>
+                    <text text-anchor="middle" x="50%" y="80%">Proyecto EGP</text>
                 </symbol>
-            
+
                 <g class = "g-ants">
                     <use xlink:href="#s-text" class="text-copy"></use>
                     <use xlink:href="#s-text" class="text-copy"></use>
@@ -78,8 +78,8 @@ svg {
 	100% {stroke-dashoffset: -35%;}
 }
             </style>
-           
-                
+
+
         </main>
 
 @endsection
