@@ -3,7 +3,7 @@
 
 The body of your message.
 
-OTP is:{{$otp}}
+OTP is: {{$otp}}
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent
