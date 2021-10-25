@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\LoginOTP;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Mail;
 
 class LoginController extends Controller
 {
@@ -59,6 +61,7 @@ class LoginController extends Controller
                 $key_expire = date("Y-m-d H:i:s", strtotime("+15 minutes"));
                 DB::table('users')->where('email', $users->email)->update(['forget_key' => $key, 'expire_forget_key' => $key_expire]);
                 // send mail here
+                Mail::to($users->email)->send(new LoginOTP($key));
                 $session_array = array(
                     'forget_email' => $users->email,
                     'pswd' => $data['password'],
