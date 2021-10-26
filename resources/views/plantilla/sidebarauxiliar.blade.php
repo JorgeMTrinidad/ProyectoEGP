@@ -39,6 +39,13 @@
                     </li>
 
                     <li class="nav-item">
+                        <a class="nav-link" href="{{url('proveedor')}}" onclick="event.preventDefault(); document.getElementById('proveedor-form').submit();"><i class="fa fa-users"></i> Proveedores</a>
+                        <form id="proveedor-form" action="{{url('proveedor')}}" method="GET" style="display: none;">
+                            {{csrf_field()}}
+                         </form>
+                    </li>
+
+                    <li class="nav-item">
                         <a class="nav-link" href="{{url('egreso')}}" onclick="event.preventDefault(); document.getElementById('egreso-form').submit();"><i class="fa fa-suitcase"></i> Egresos</a>
                         <form id="egreso-form" action="{{url('egreso')}}" method="GET" style="display: none;">
                             {{csrf_field()}}
@@ -52,11 +59,9 @@
                          </form>
                     </li>
 
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('user')}}" onclick="event.preventDefault(); document.getElementById('user-form').submit();"><i class="fa fa-user"></i> Usuarios</a>
-                        <form id="user-form" action="{{url('user')}}" method="GET" style="display: none;">
-                            {{csrf_field()}}
-                         </form>
+                        <a class="nav-link" href="files/Manual.pdf" download target="_blank"><i class="fa fa-list"></i> Manual de Usuario</a>
                     </li>
 
 

@@ -2,7 +2,7 @@
 <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="/">BACKEND - SISTEMA DE COMPRAS - VENTAS</a></li>
+                <li class="breadcrumb-item active"><a href="/">SISTEMA DE INGRESOS - EGRESOS</a></li>
             </ol>
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
@@ -10,10 +10,17 @@
                     <div class="card-header">
 
                        <h2>Listado de Productos</h2><br/>
-
+                       <?php if(session('user_roll')!==3): ?>
                         <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Producto
                         </button>
+                        <a href="<?php echo e(url('listarProductoPdf')); ?>" target="_blank">
+                            <button type="button" class="btn btn-success btn-lg">
+                                <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Picking List
+
+                            </button>
+                        </a>
+                        <?php endif; ?>
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
@@ -39,8 +46,10 @@
                                     <th>Precio Venta (Q)
                                     <th>Stock</th>
                                     <th>Estado</th>
+                                    <?php if(session('user_roll')!==3): ?>
                                     <th>Editar</th>
                                     <th>Cambiar Estado</th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,9 +83,9 @@
                                        <?php endif; ?>
 
                                     </td>
-
+                                    <?php if(session('user_roll')!==3): ?>
                                     <td>
-                                        <button type="button" class="btn btn-info btn-md" data-id_producto="<?php echo e($prod->id); ?>" data-id_categoria="<?php echo e($prod->idcategoria); ?>" data-codigo="<?php echo e($prod->codigo); ?>" data-stock="<?php echo e($prod->stock); ?>" data-nombre="<?php echo e($prod->nombre); ?>" data-precio_venta="<?php echo e($prod->precio_venta); ?>"  data-toggle="modal" data-target="#abrirmodalEditar">
+                                        <button type="button" class="btn btn-info btn-md" data-id_producto="<?php echo e($prod->id); ?>" data-id_categoria="<?php echo e($prod->idcategoria); ?>" data-stock="<?php echo e($prod->stock); ?>" data-nombre="<?php echo e($prod->nombre); ?>" data-precio_venta="<?php echo e($prod->precio_venta); ?>"  data-toggle="modal" data-target="#abrirmodalEditar">
                                           <i class="fa fa-edit fa-2x"></i> Editar
                                         </button> &nbsp;
                                     </td>
@@ -99,6 +108,7 @@
                                         <?php endif; ?>
 
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
 
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

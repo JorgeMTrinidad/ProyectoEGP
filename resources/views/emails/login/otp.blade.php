@@ -1,9 +1,9 @@
 @component('mail::message')
-# Introduction
+Bienvenido
 
-The body of your message.
+Por favor copia el código para iniciar sesión.
 
-OTP is: {{$otp}}
-Thanks,<br>
+Código: {{$otp}}
+Gracias,<br>
 {{ config('app.name') }}
 @endcomponent

@@ -72,7 +72,6 @@ class EgresoController extends Controller
                  $egreso->idmaestroobras = $request->id_maestroobras;
                  $egreso->idusuario = Auth::user()->id;
                  $egreso->tipo_identificacion = $request->tipo_identificacion;
-                 $egreso->num_egreso = $request->num_egreso;
                  $egreso->fecha_egreso = $mytime->toDateString();
                  $egreso->total=$request->total_pagar;
                  $egreso->estado = 'Registrado';
@@ -159,13 +158,13 @@ class EgresoController extends Controller
              ->join('detalle_egresos','egresos.id','=','detalle_egresos.idegreso')
              ->select('egresos.id','egresos.tipo_identificacion',
              'egresos.num_egreso','egresos.fecha_egreso',
-             'egresos.estado',DB::raw('sum(detalle_egresos.cantidad*precio) as total'),'maestrosobras.nombre','maestrosobras.tipo_documento','maestrosobras.num_documento',
+             'egresos.estado',DB::raw('sum(detalle_egresos.cantidad*precio) as total'),'maestrosobras.nombre','maestrosobras.num_documento',
              'maestrosobras.direccion','maestrosobras.num_documento','maestrosobras.email','maestrosobras.telefono','users.usuario')
              ->where('egresos.id','=',$id)
              ->orderBy('egresos.id', 'desc')
              ->groupBy('egresos.id','egresos.tipo_identificacion',
              'egresos.num_egreso','egresos.fecha_egreso',
-             'egresos.estado','maestrosobras.nombre','maestrosobras.tipo_documento','maestrosobras.num_documento',
+             'egresos.estado','maestrosobras.nombre','maestrosobras.num_documento',
              'maestrosobras.direccion','maestrosobras.email','maestrosobras.telefono','users.usuario')
              ->take(1)->get();
 

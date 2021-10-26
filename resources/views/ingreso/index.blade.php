@@ -3,7 +3,7 @@
 <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="/">BACKEND - SISTEMA DE COMPRAS - VENTAS</a></li>
+                <li class="breadcrumb-item active"><a href="/">SISTEMA DE INGRESOS - EGRESOS</a></li>
             </ol>
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
@@ -11,7 +11,7 @@
                     <div class="card-header">
 
                        <h2>Listado de Ingresos</h2><br/>
-
+                       @if(session('user_roll')!==3)
                        <a href="ingreso/create">
 
                         <button class="btn btn-primary btn-lg" type="button">
@@ -19,6 +19,7 @@
                         </button>
 
                         </a>
+                        @endif
 
                     </div>
                     <div class="card-body">
@@ -43,14 +44,16 @@
                                     <th>Número Ingreso</th>
                                     <th>Proveedor</th>
                                     <th>Tipo de identificación</th>
-                                    <th>Ingresodor</th>
+                                    <th>Usuario</th>
                                     <th>Total (Q)</th>
-                                    @if(session('user_roll')!==1)
-                                        <th>revisión</th>
+                                    @if(session('user_roll')!==3)
+                                    <th>Revisión</th>
                                     @endif
                                     <th>Estado</th>
+                                    @if(session('user_roll')!==3)
                                     <th>Cambiar Estado</th>
-                                    <th>Descargar Reporte</th>
+                                    <th>Cotización</th>
+                                    @endif
 
                                 </tr>
                             </thead>
@@ -60,7 +63,7 @@
                                   $data=App\DetalleIngreso::where('idingreso',$comp->id)->where('revision','=','INCORRECTO')->first();
                                   $auxiliarData=App\DetalleIngreso::where('idingreso',$comp->id)->where('revision','=','INCORRECTO')->first();
                                 @endphp
-                                @if(session('user_roll')!==1)
+                                @if(session('user_roll')!==3)
                                   {{$data=null}}
                                 @endif
                                 @if($data===null)
@@ -76,9 +79,9 @@
                                       <td>{{$comp->num_ingreso}}</td>
                                       <td>{{$comp->proveedor}}</td>
                                       <td>{{$comp->tipo_identificacion}}</td>
-                                      <td>{{$comp->nombre}}</td>
+                                      <td>{{$comp->usuario}}</td>
                                       <td>Q{{number_format($comp->total,2)}}</td>
-                                      @if(session('user_roll')!==1)
+                                      @if(session('user_roll')!==3)
                                         <td>
                                             @if($auxiliarData===null)
                                                 CORRECTO
@@ -98,10 +101,11 @@
                                           </button>
                                         @endif
                                       </td>
+                                      @if(session('user_roll')!==3)
                                       <td>
                                         @if($comp->estado=="Registrado")
                                           <button type="button" class="btn btn-danger btn-sm" data-id_ingreso="{{$comp->id}}" data-toggle="modal" data-target="#cambiarEstadoIngreso">
-                                            <i class="fa fa-times fa-2x"></i> Anular Ingreso
+                                            <i class="fa fa-times fa-2x"></i> Anular
                                           </button>
                                           @else
                                           <button type="button" class="btn btn-success btn-sm">
@@ -112,10 +116,11 @@
                                       <td>
                                         <a href="{{url('pdfIngreso',$comp->id)}}" target="_blank">
                                             <button type="button" class="btn btn-info btn-sm">
-                                              <i class="fa fa-file fa-2x"></i> Descargar PDF
+                                              <i class="fa fa-file fa-2x"></i> Cotización
                                             </button> &nbsp;
                                         </a>
                                     </td>
+                                    @endif
                                   </tr>
                                   @endif
                                 @endforeach

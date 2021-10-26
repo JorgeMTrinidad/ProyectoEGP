@@ -23,7 +23,7 @@ class IngresoController extends Controller
                 ->join('detalle_ingresos', 'ingresos.id', '=', 'detalle_ingresos.idingreso')
                 ->select('ingresos.id', 'ingresos.tipo_identificacion', 'detalle_ingresos.revision',
                     'ingresos.num_ingreso', 'ingresos.fecha_ingreso',
-                    'ingresos.estado', 'ingresos.total', 'proveedores.nombre as proveedor', 'users.nombre')
+                    'ingresos.estado', 'ingresos.total', 'proveedores.nombre as proveedor', 'users.usuario')
                 ->where('ingresos.num_ingreso', 'LIKE', '%' . $sql . '%')
                 ->where(function ($query) {
                     if (session('user_roll') == 1) {
@@ -34,7 +34,7 @@ class IngresoController extends Controller
                 ->orderBy('ingresos.id', 'desc')
                 ->groupBy('ingresos.id', 'ingresos.tipo_identificacion', 'detalle_ingresos.revision',
                     'ingresos.num_ingreso', 'ingresos.fecha_ingreso',
-                    'ingresos.estado', 'ingresos.total', 'proveedores.nombre', 'users.nombre')
+                    'ingresos.estado', 'ingresos.total', 'proveedores.nombre', 'users.usuario')
                 ->paginate(8);
             return view('ingreso.index', ["ingresos" => $ingresos, "buscarTexto" => $sql]);
 
@@ -82,7 +82,6 @@ class IngresoController extends Controller
             $id_producto = $request->id_producto;
             $cantidad = $request->cantidad;
             $precio = $request->precio_ingreso;
-            $revision = $request->estado_ingreso;
 
             //Recorro todos los elementos
             $cont = 0;
@@ -96,7 +95,6 @@ class IngresoController extends Controller
                 $detalle->idproducto = $id_producto[$cont];
                 $detalle->cantidad = $cantidad[$cont];
                 $detalle->precio = $precio[$cont];
-                $detalle->revision = $revision[$cont];
 
                 $detalle->save();
                 $cont = $cont + 1;

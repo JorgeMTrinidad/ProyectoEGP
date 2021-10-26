@@ -9,8 +9,8 @@
           {{ csrf_field() }}
           <body background="\img\fondo.jpg">
               <div class="card-body">
-              <h3 class="text-center bg-success">MULTISERVICIOS VIMEGA</h3>
-              <p class="text-center bg-success">TALLER Y REPUESTOS</p>
+              <h3 class="text-center bg-success">Proyecto EGP</h3>
+              <p class="text-center bg-success">Construcción</p>
 
               <div class="form-group mb-3{{$errors->has('key' ? 'is-invalid' : '')}}">
                 <span class="input-group-addon"><i class="icon-user"></i></span>

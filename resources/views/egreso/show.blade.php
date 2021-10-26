@@ -48,6 +48,7 @@
                     <tr class="bg-success">
 
                         <th>Producto</th>
+                        <th>Revisión</th>
                         <th>Precio Egreso</th>
                         <th>Cantidad</th>
                         <th>SubTotal</th>
@@ -58,7 +59,7 @@
 
 
                     <tr>
-                        <th  colspan="3"><p align="right">TOTAL:</p></th>
+                        <th  colspan="4"><p align="right">TOTAL:</p></th>
                         <th><p align="right">Q{{number_format($egreso->total,2)}}</p></th>
                     </tr>
                 </tfoot>
@@ -70,6 +71,7 @@
                     <tr>
 
                       <td>{{$det->producto}}</td>
+                      <td>{{$det->revision}}</td>
                       <td>Q{{$det->precio}}</td>
                       <td>{{$det->cantidad}}</td>
                       <td>Q{{number_format($det->cantidad*$det->precio,2)}}</td>

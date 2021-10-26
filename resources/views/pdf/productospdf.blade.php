@@ -82,17 +82,32 @@
 </head>
 <body>
     <div>
-        <h3>MULTISERVICIOS VIMEGA <span class="derecha">{{now()}}</span></h3>
+        <h3>Proyecto EGP<span class="derecha">{{now()}}</span></h3>
     </div>
     <div>
+        <table id="datos">
+            <thead>
+                <tr>
+                    <th id="">DATOS DEL MAESTRO DE OBRAS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th><p id="proveedor">Nombre:_____________________________________ <br>
+                    Código de empleado:__________________________</p></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<br>
+<br>
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr>
                     <th>Categoría</th>
                     <th>Producto</th>
-                    <th>Marca</th>
                     <th>Código</th>
-                    <th>Faltantes</th>
+                    <th>Cantidad Solicitada</th>
 
                 </tr>
             </thead>
@@ -101,13 +116,41 @@
                 <tr>
                     <td>{{$a->nombre_categoria}}</td>
                     <td>{{$a->nombre}}</td>
-                    <td>{{$a->marca}}</td>
                     <td>{{$a->codigo}}</td>
-                    <td>{{number_format($a->max_existencia-$a->stock)}}
+                    <td></td>
+
                 </tr>
                 @endforeach
             </tbody>
         </table>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div>
+            <table id="datos">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th><p id="proveedor">Firma Maestro de Obras:____________________________<br>
+                            <br>
+                            <br>
+                            <br>
+                        Firma Supervisor de Obras:_________________________</p></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de venta</title>
+    <title>Reporte de ingreso</title>
     <style>
         body {
         /*position: relative;*/
@@ -12,12 +12,12 @@
         /*margin: 0 auto; */
         /*color: #555555;*/
         /*background: #FFFFFF; */
-        font-family: Arial, sans-serif; 
+        font-family: Arial, sans-serif;
         font-size: 14px;
         /*font-family: SourceSansPro;*/
         }
- 
- 
+
+
         #datos{
         float: left;
         margin-top: 0%;
@@ -25,14 +25,14 @@
         margin-right: 2%;
         /*text-align: justify;*/
         }
- 
+
         #encabezado{
         text-align: center;
         margin-left: 35%;
         margin-right: 35%;
         font-size: 15px;
         }
- 
+
         #fact{
         /*position: relative;*/
         float: right;
@@ -40,104 +40,121 @@
         margin-left: 2%;
         margin-right: 2%;
         font-size: 20px;
-        color: #FFFFFF;
-        background:#D2691E;
+        background:#33AFFF;
         }
- 
+
         section{
         clear: left;
         }
- 
+
         #cliente{
         text-align: left;
         }
- 
-        #facliente{
+
+        #faproveedor{
         width: 40%;
         border-collapse: collapse;
         border-spacing: 0;
         margin-bottom: 15px;
         }
- 
+
         #fac, #fv, #fa{
         color: #FFFFFF;
         font-size: 15px;
         }
- 
-        #facliente thead{
+
+        #faproveedor thead{
         padding: 20px;
-        background:#D2691E;
+        background:#33AFFF;
         text-align: left;
-        border-bottom: 1px solid #FFFFFF;  
+        border-bottom: 1px solid #FFFFFF;
         }
- 
-        #facvendedor{
+
+        #facingresodor{
         width: 100%;
         border-collapse: collapse;
         border-spacing: 0;
         margin-bottom: 15px;
         }
- 
-        #facvendedor thead{
+
+        #facingresodor thead{
         padding: 20px;
-        background: #D2691E;
+        background: #33AFFF;
         text-align: center;
-        border-bottom: 1px solid #FFFFFF;  
+        border-bottom: 1px solid #FFFFFF;
         }
- 
+
         #facproducto{
         width: 100%;
         border-collapse: collapse;
         border-spacing: 0;
         margin-bottom: 15px;
         }
- 
+
         #facproducto thead{
         padding: 20px;
-        background: #D2691E;
+        background: #33AFFF;
         text-align: center;
-        border-bottom: 1px solid #FFFFFF;  
+        border-bottom: 1px solid #FFFFFF;
         }
- 
-       
+
+
     </style>
     <body>
-        @foreach ($credito2 as $v)
+        @foreach ($ingreso as $v)
         <header>
             <!--<div id="logo">
                 <img src="img/logo.png" alt="" id="imagen">
             </div>-->
 
-            <div>
-                
+             <div>
+
                 <table id="datos">
-                    <thead>                        
+                    <thead>
                         <tr>
-                            <th id="">DATOS DEL CLIENTE</th>
+                            <th id="">DATOS DEL PROVEEDOR</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th><p id="proveedor">Nombre: {{$v->nombre}}<br>
+                            {{$v->tipo_identificacion}}-ingreso: {{$v->num_ingreso}}<br>
                             Dirección: {{$v->direccion}}<br>
                             Teléfono: {{$v->telefono}}<br>
-                            NIT: {{$v->num_documento}}<br>
-                            Lugar y Fecha: Jalapa, {{$fecha}}</</p></th>
+                            Email: {{$v->email}}</</p></th>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            
+
             <div id="fact">
-                <p>TRANSAC.-{{$v->tipo_identificacion2}}<br>
-                  {{$v->num_credito2}}</p>
+                <p>ingreso<br/>
+                  {{$v->num_ingreso}}</p>
             </div>
         </header>
         <br>
-       
+
         @endforeach
         <br>
-       
+        <section>
+            <div>
+                <table id="facingresodor">
+                    <thead>
+                        <tr id="fv">
+                            <th>ENCARGADO</th>
+                            <th>FECHA INGRESO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{$v->usuario}}</td>
+                            <td>{{$v->created_at}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <br>
         <section>
             <div>
                 <table id="facproducto">
@@ -145,37 +162,32 @@
                         <tr id="fa">
                             <th>CANTIDAD</th>
                             <th>PRODUCTO</th>
-                            <th>PRECIO VENTA</th>
-                            <th>SUBTOTAL Q</th>
+                            <th>PRECIO INGRESO</th>
+                            <!--<th>CANTIDAD*PRECIO</th>-->
+                            <th>SUBTOTAL</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($detalles2 as $det)
+                        @foreach ($detalles as $det)
                         <tr>
-                            <td>{{$det->cantidad2}}</td>
+                            <td>{{$det->cantidad}}</td>
                             <td>{{$det->producto}} {{$det->marca}}</td>
-                            <td>Q{{$det->pmaximo_venta}}</td>
-                            <td>Q{{number_format($det->cantidad2*$det->pmaximo_venta,2)}}</td>
+                            <td>Q{{$det->precio}}</td>
+                            <!--<td>${{$det->cantidad*$det->precio}}</td>-->
+                            <td>Q{{number_format($det->cantidad*$det->precio,2)}}</td>
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
-                        @foreach ($credito2 as $c)
+                        @foreach ($ingreso as $i)
                         <tr>
-                            <th colspan="3"><p align="right">TOTAL PARCIAL:</p></th>
-                            <td><p align="right">Q{{number_format($c->subtotal2,2)}}</p></td>
-                         </tr>
- 
-                         <tr>
-                             <th  colspan="3"><p align="right">DESCUENTO:</p></th>
-                             <td><p align="right">Q{{number_format($c->subtotal2-$c->total2,2)}}</p></td>
-                         </tr>
-
-                        <tr>
-                            <th  colspan="3"><p align="right">TOTAL PAGAR:</p></th>
-                            <td><p align="right">Q{{number_format($c->total2,2)}}</p></td>
+                           <th colspan="3"><p align="right">TOTAL:</p></th>
+                            <td><p align="right">Q{{number_format($i->total)}}<p></td>
                         </tr>
-
+                        <tr>
+                           <th  colspan="3"><p align="right">TOTAL PAGAR:</p></th>
+                            <td><p align="right">Q{{number_format($i->total,2)}}</p></td>
+                        </tr>
                         @endforeach
                     </tfoot>
                 </table>
@@ -184,10 +196,10 @@
         <br>
         <br>
         <footer>
-            <!--puedes poner un mensaje aqui-->
-            <div id="datos">
+             <!--puedes poner un mensaje aqui-->
+             <div id="datos">
                 <p id="encabezado">
-                    <b>Repuestos Vimega</b><br>Sisventas
+                    <b>Proyecto EGP</b><br>Jorge Mario Trinidad Salguero<br>Telefono:45595083<br>Email:jorgemtrinidad@outlook.es
                 </p>
             </div>
         </footer>

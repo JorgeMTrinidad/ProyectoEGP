@@ -19,7 +19,7 @@
 
             <div class="col-md-8">
 
-                <label class="form-control-label" for="nombre">Nombre del Cliente</label>
+                <label class="form-control-label" for="nombre">Nombre del Maestro de Obras</label>
 
                     <select class="form-control selectpicker" name="id_maestroobras" id="id_maestroobras" data-live-search="true" required>
 
@@ -52,15 +52,6 @@
                 </div>
             </div>
 
-
-            <div class="form-group row">
-
-                <div class="col-md-8">
-                        <label class="form-control-label" for="num_egreso">Número Egreso</label>
-
-                        <input type="text" id="num_egreso" required name="num_egreso" class="form-control" placeholder="Ingrese el número egreso" pattern="[0-9]{0,15}">
-                </div>
-            </div>
 
             <br/><br/>
 
@@ -109,7 +100,7 @@
                 <div class="col-md-2">
                         <label class="form-control-label" for="Revisión">Revisión</label>
 
-                        <select class="form-control" name="estado_egreso" id="estado_egreso" required>
+                        <select class="form-control" name="estado_egreso" id="estado_egreso">
 
                             <option value="0" disabled>Seleccione</option>
                             <option value="CORRECTO">Correcto</option>
@@ -278,7 +269,7 @@
      function limpiar(){
 
         $("#cantidad").val("");
-        $("#estado_egreso").val("0");
+        $("#estado_egreso").val("");
         $("#precio_egreso").val("");
 
      }
