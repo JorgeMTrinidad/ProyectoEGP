@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de venta</title>
+    <title>Reporte de Picking List</title>
     <style>
         body {
         /*position: relative;*/
@@ -12,12 +12,12 @@
         /*margin: 0 auto; */
         /*color: #555555;*/
         /*background: #FFFFFF; */
-        font-family: Arial, sans-serif; 
+        font-family: Arial, sans-serif;
         font-size: 14px;
         /*font-family: SourceSansPro;*/
         }
- 
- 
+
+
         #datos{
         float: left;
         margin-top: 0%;
@@ -25,14 +25,14 @@
         margin-right: 2%;
         /*text-align: justify;*/
         }
- 
+
         #encabezado{
         text-align: center;
         margin-left: 35%;
         margin-right: 35%;
         font-size: 15px;
         }
- 
+
         #fact{
         /*position: relative;*/
         float: right;
@@ -43,75 +43,75 @@
         color: #FFFFFF;
         background:#D2691E;
         }
- 
+
         section{
         clear: left;
         }
- 
+
         #cliente{
         text-align: left;
         }
- 
+
         #facliente{
         width: 40%;
         border-collapse: collapse;
         border-spacing: 0;
         margin-bottom: 15px;
         }
- 
+
         #fac, #fv, #fa{
         color: #FFFFFF;
         font-size: 15px;
         }
- 
+
         #facliente thead{
         padding: 20px;
         background:#D2691E;
         text-align: left;
-        border-bottom: 1px solid #FFFFFF;  
+        border-bottom: 1px solid #FFFFFF;
         }
- 
+
         #facvendedor{
         width: 100%;
         border-collapse: collapse;
         border-spacing: 0;
         margin-bottom: 15px;
         }
- 
+
         #facvendedor thead{
         padding: 20px;
         background: #D2691E;
         text-align: center;
-        border-bottom: 1px solid #FFFFFF;  
+        border-bottom: 1px solid #FFFFFF;
         }
- 
+
         #facproducto{
         width: 100%;
         border-collapse: collapse;
         border-spacing: 0;
         margin-bottom: 15px;
         }
- 
+
         #facproducto thead{
         padding: 20px;
         background: #D2691E;
         text-align: center;
-        border-bottom: 1px solid #FFFFFF;  
+        border-bottom: 1px solid #FFFFFF;
         }
- 
-       
+
+
     </style>
     <body>
-        @foreach ($venta as $v)
+        @foreach ($egreso as $v)
         <header>
             <!--<div id="logo">
                 <img src="img/logo.png" alt="" id="imagen">
             </div>-->
 
             <div>
-                
+
                 <table id="datos">
-                    <thead>                        
+                    <thead>
                         <tr>
                             <th id="">DATOS DEL COMPROBANTE</th>
                         </tr>
@@ -127,17 +127,17 @@
                     </tbody>
                 </table>
             </div>
-            
+
             <div id="fact">
-                <p>TRANSAC.-{{$v->tipo_identificacion}}<br>
-                  {{$v->num_venta}}</p>
+                <p>{{$v->tipo_identificacion}}<br>
+                  {{$v->num_egreso}}</p>
             </div>
         </header>
         <br>
-       
+
         @endforeach
         <br>
-       
+
         <section>
             <div>
                 <table id="facproducto">
@@ -145,7 +145,7 @@
                         <tr id="fa">
                             <th>CANTIDAD</th>
                             <th>PRODUCTO</th>
-                            <th>PRECIO VENTA</th>
+                            <th>PRECIO egreso</th>
                             <th>SUBTOTAL Q</th>
                         </tr>
                     </thead>
@@ -153,27 +153,18 @@
                         @foreach ($detalles as $det)
                         <tr>
                             <td>{{$det->cantidad}}</td>
-                            <td>{{$det->producto}} {{$det->marca}}</td>
-                            <td>Q{{$det->pmaximo_venta}}</td>
-                            <td>Q{{number_format($det->cantidad*$det->pmaximo_venta,2)}}</td>
+                            <td>{{$det->producto}}</td>
+                            <td>Q{{$det->precio}}</td>
+                            <td>Q{{number_format($det->cantidad*$det->precio,2)}}</td>
                         </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
-                        @foreach ($venta as $v)
-                        <tr>
-                            <th colspan="3"><p align="right">TOTAL PARCIAL:</p></th>
-                            <td><p align="right">Q{{number_format($v->subtotal,2)}}</p></td>
-                         </tr>
- 
-                         <tr>
-                             <th  colspan="3"><p align="right">DESCUENTO:</p></th>
-                             <td><p align="right">Q{{number_format($v->subtotal-$v->total,2)}}</p></td>
-                         </tr>
+                        @foreach ($egreso as $e)
 
                         <tr>
                             <th  colspan="3"><p align="right">TOTAL:</p></th>
-                            <td><p align="right">Q{{number_format($v->total,2)}}</p></td>
+                            <td><p align="right">Q{{number_format($e->total,2)}}</p></td>
                         </tr>
 
                         @endforeach
@@ -187,7 +178,7 @@
             <!--puedes poner un mensaje aqui-->
             <div id="datos">
                 <p id="encabezado">
-                    <b>Repuestos Vimega</b><br>Sisventas
+                    <b>Proyecto EGP</b><br>Jorge Mario Trinidad Salguero<br>Telefono:45595083<br>Email:jorgemtrinidad@outlook.es
                 </p>
             </div>
         </footer>

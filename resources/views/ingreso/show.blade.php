@@ -50,10 +50,10 @@
                         <th>Producto</th>
                         <th>Precio (Q)</th>
                         <th>Cantidad</th>
-                        <th>Revision</th>
-                        @if(session('user_roll')!==1)
-                            <th>revisión</th>
+                        @if(session('user_roll')!==3)
+                        <th>Revisión</th>
                         @endif
+                        <th>Revisión</th>
                         <th>SubTotal (Q)</th>
                     </tr>
                 </thead>
@@ -66,13 +66,13 @@
                    <th><h4 id="total">${{$ingreso->total}}</h4></th>-->
 
                     <tr>
-                        <th  colspan="4"><p align="right">TOTAL:</p></th>
+                        <th  colspan="5"><p align="right">TOTAL:</p></th>
                         <th><p align="right">Q{{number_format($ingreso->total,2)}}</p></th>
                     </tr>
 
 
                     <tr>
-                        <th  colspan="4"><p align="right">TOTAL PAGAR:</p></th>
+                        <th  colspan="5"><p align="right">TOTAL PAGAR:</p></th>
                         <th><p align="right">Q{{number_format($ingreso->total+($ingreso->total*20/100),2)}}</p></th>
                     </tr>
 
@@ -85,9 +85,9 @@
                     <tr>
 
                       <td>{{$det->producto}}</td>
-                      <td>${{$det->precio}}</td>
+                      <td>Q{{$det->precio}}</td>
                       <td>{{$det->cantidad}}</td>
-                      @if(session('user_roll')!==1)
+                      @if(session('user_roll')!==3)
                         <td>
                             @if($det->revision=='CORRECTO')
                             <button type="button" class="btn btn-success btn-md" onclick="event.preventDefault(); document.getElementById('revision-correct-form{{$det->id}}').submit();">
@@ -109,7 +109,7 @@
                         </td>
                       @endif
                       <td>{{$det->revision}}</td>
-                      <td>${{number_format($det->cantidad*$det->precio,2)}}</td>
+                      <td>Q{{number_format($det->cantidad*$det->precio,2)}}</td>
 
 
                     </tr>

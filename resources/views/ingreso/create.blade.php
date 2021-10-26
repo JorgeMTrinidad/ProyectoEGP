@@ -50,8 +50,8 @@
                         <select class="form-control" name="tipo_identificacion" id="tipo_identificacion" required>
 
                             <option value="0" disabled>Seleccione</option>
-                            <option value="FACTURA">Ingreso</option>
-                            <option value="RECIBO">Ingreso</option>
+                            <option value="FACTURA">Factura</option>
+                            <option value="RECIBO">Recibo</option>
 
 
                         </select>
@@ -104,21 +104,9 @@
                 <div class="col-md-3">
                         <label class="form-control-label" for="precio_ingreso">Precio</label>
 
-                        <input type="number" onkeypress="return noenter()" step="0.01" id="precio_ingreso" name="precio_ingreso" class="form-control" placeholder="Ingrese el estado del ingreso" pattern="[0-9]{0,15}">
+                        <input type="number" onkeypress="return noenter()" step="0.01" id="precio_ingreso" name="precio_ingreso" class="form-control" placeholder="Ingrese el precio" pattern="[0-9]{0,15}">
                 </div>
 
-                <div class="col-md-3">
-                    <label class="form-control-label" for="estado_ingreso">Revision </label>
-
-                    <select class="form-control" name="estado_ingreso" id="estado_ingreso">
-
-                        <option value="0" disabled>Seleccione</option>
-                        <option value="CORRECTO">Correcto</option>
-                        <option value="INCORRECTO">Incorrecto</option>
-
-
-                    </select>
-            </div>
 
 
                 <div class="col-md-3">
@@ -143,7 +131,6 @@
                         <th>Producto</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
-                        <th>Revisión</th>
                         <th>SubTotal</th>
                     </tr>
                 </thead>
@@ -152,12 +139,12 @@
 
 
                     <tr>
-                        <th  colspan="5"><p align="right">TOTAL:</p></th>
+                        <th  colspan="4"><p align="right">TOTAL:</p></th>
                         <th><p align="right"><span id="total">Q 0.00</span> </p></th>
                     </tr>
 
                     <tr>
-                        <th  colspan="5"><p align="right">TOTAL PAGAR:</p></th>
+                        <th  colspan="4"><p align="right">TOTAL PAGAR:</p></th>
                         <th><p align="right"><span align="right" id="total_pagar_html">Q 0.00</span> <input type="hidden" name="total_pagar" id="total_pagar"></p></th>
                     </tr>
 
@@ -231,7 +218,6 @@ function validarFormulario(evento) {
           producto= $("#id_producto option:selected").text();
           cantidad= $("#cantidad").val();
           precio_ingreso= $("#precio_ingreso").val();
-          estado_ingreso= $("#estado_ingreso").val();
 
 
 
@@ -240,7 +226,7 @@ function validarFormulario(evento) {
              subtotal[cont]=cantidad*precio_ingreso;
              total= total+subtotal[cont];
 
-             var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" id="precio_ingreso[]" name="precio_ingreso[]"  value="'+precio_ingreso+'"> </td>  <td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td> <td><input type="text" id="estado_ingreso[]" name="estado_ingreso[]"  value="'+estado_ingreso+'"> </td>  <td>Q'+subtotal[cont]+' </td></tr>';
+             var fila= '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+');"><i class="fa fa-times fa-2x"></i></button></td> <td><input type="hidden" name="id_producto[]" value="'+id_producto+'">'+producto+'</td> <td><input type="number" id="precio_ingreso[]" name="precio_ingreso[]"  value="'+precio_ingreso+'"> </td>  <td><input type="number" name="cantidad[]" value="'+cantidad+'"> </td> <td>Q'+subtotal[cont]+' </td></tr>';
              cont++;
              limpiar();
              totales();
@@ -268,7 +254,6 @@ function validarFormulario(evento) {
 
         $("#cantidad").val("");
         $("#precio_ingreso").val("");
-        $("#estado_ingreso").val("");
 
 
      }

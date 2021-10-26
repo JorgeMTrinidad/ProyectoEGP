@@ -3,7 +3,7 @@
 <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="/">BACKEND - SISTEMA DE COMPRAS - VENTAS</a></li>
+                <li class="breadcrumb-item active"><a href="/">SISTEMA DE INGRESOS - EGRESOS</a></li>
             </ol>
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
@@ -11,17 +11,18 @@
                     <div class="card-header">
 
                        <h2>Listado de Categorías</h2><br/>
-                      
+                       @if(session('user_roll')!==3)
                         <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Categoría
                         </button>
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-6">
-                            {!!Form::open(array('url'=>'categoria','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
+                            {!!Form::open(array('url'=>'categoria','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}
                                 <div class="input-group">
-                                   
+
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
                                     <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
@@ -31,21 +32,23 @@
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-                                   
+
                                     <th>Código</th>
                                     <th>Categoría</th>
                                     <th>Descripción</th>
                                     <th>Estado</th>
+                                    @if(session('user_roll')!==3)
                                     <th>Editar</th>
                                     <th>Cambiar Estado</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
 
                                @foreach($categorias as $cat)
-                               
+
                                 <tr>
-                                    <td>{{$cat->idcat}}</td>
+                                    <td>{{$cat->id}}</td>
                                     <td>{{$cat->nombre}}</td>
                                     <td>{{$cat->descripcion}}</td>
                                     <td>
@@ -53,20 +56,22 @@
                                       @if($cat->condicion=="1")
 
                                         <button type="button" class="btn btn-success btn-md">
-                                    
+
                                           <i class="fa fa-check fa-2x"></i> Activo
                                         </button>
 
                                       @else
                                          <button type="button" class="btn btn-danger btn-md">
-                                    
+
                                          <i class="fa fa-check fa-2x"></i> Desactivado
                                          </button>
 
                                       @endif
-                                        
-                                       
+
+
                                     </td>
+
+                                    @if(session('user_roll')!==3)
 
                                     <td>
                                         <button type="button" class="btn btn-info btn-md" data-id_categoria="{{$cat->id}}" data-nombre="{{$cat->nombre}}" data-descripcion="{{$cat->descripcion}}" data-toggle="modal" data-target="#abrirmodalEditar">
@@ -77,7 +82,7 @@
 
                                     <td>
 
-                                        
+
                                         @if($cat->condicion)
 
                                         <button type="button" class="btn btn-danger btn-sm" data-id_categoria="{{$cat->id}}" data-toggle="modal" data-target="#cambiarEstado">
@@ -91,15 +96,16 @@
                                         </button>
 
                                         @endif
-                                       
+
                                     </td>
+                                    @endif
                                 </tr>
 
                                 @endforeach
-                               
+
                             </tbody>
                         </table>
-                            
+
                             {{$categorias->render()}}
 
                     </div>
@@ -116,19 +122,19 @@
                               <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                       
+
                         <div class="modal-body">
-                             
+
 
                             <form action="{{route('categoria.store')}}" method="post" class="form-horizontal">
-                               
+
                                 {{csrf_field()}}
-                                
+
                                 @include('categoria.form')
 
                             </form>
                         </div>
-                        
+
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -147,22 +153,22 @@
                               <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                       
+
                         <div class="modal-body">
-                             
+
 
                             <form action="{{route('categoria.update','test')}}" method="post" class="form-horizontal">
-                                
+
                                 {{method_field('patch')}}
                                 {{csrf_field()}}
 
                                 <input type="hidden" id="id_categoria" name="id_categoria" value="">
-                                
+
                                 @include('categoria.form')
 
                             </form>
                         </div>
-                        
+
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -181,19 +187,19 @@
                               <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                       
+
                         <div class="modal-body">
-                             
+
 
                             <form action="{{route('categoria.destroy','test')}}" method="post" class="form-horizontal">
-                                
+
                                 {{method_field('delete')}}
                                 {{csrf_field()}}
 
                                 <input type="hidden" id="id_categoria" name="id_categoria" value="">
-                                
+
                                 <p>Estas seguro de cambiar el estado?</p>
-        
+
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times fa-2x"></i>Cerrar</button>
@@ -203,17 +209,17 @@
 
                             </form>
                         </div>
-                        
+
                     </div>
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
             </div>
             <!--Fin del modal-->
-           
-           
-           
-            
+
+
+
+
         </main>
 
 @endsection

@@ -75,6 +75,10 @@
                          </form>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link" href="files/Manual.pdf" download target="_blank"><i class="fa fa-list"></i> Manual de Usuario</a>
+                    </li>
+
 
                 </ul>
             </nav>

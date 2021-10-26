@@ -3,13 +3,13 @@
 <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="/">SISTEMA DE COMPRAS - VENTAS</a></li>
+                <li class="breadcrumb-item active"><a href="/">SISTEMA DE INGRESOS - EGRESOS</a></li>
             </ol>
             <svg viewBox="0 0 960 300">
                 <symbol id="s-text">
-                    <text text-anchor="middle" x="50%" y="80%">Multiservicios Vimega</text>
+                    <text text-anchor="middle" x="50%" y="80%">Proyecto EGP</text>
                 </symbol>
-            
+
                 <g class = "g-ants">
                     <use xlink:href="#s-text" class="text-copy"></use>
                     <use xlink:href="#s-text" class="text-copy"></use>
@@ -28,7 +28,7 @@ html, body{
 }
 
 body{
-  background: #2e85ad;
+  background: #9ca7ac;
   font-family: Arial;
 }
 
@@ -55,17 +55,17 @@ svg {
 }
 
 .text-copy:nth-child(2){
-	stroke: #2b2b2b;
+	stroke: #130f0f;
 	animation-delay: -2s;
 }
 
 .text-copy:nth-child(3){
-	stroke: #4d4d4d;
+	stroke: #201e1e;
 	animation-delay: -3s;
 }
 
 .text-copy:nth-child(4){
-	stroke: #a0a09e;
+	stroke: #20201e;
 	animation-delay: -4s;
 }
 
@@ -78,8 +78,8 @@ svg {
 	100% {stroke-dashoffset: -35%;}
 }
             </style>
-           
-                
+
+
         </main>
 
 @endsection

@@ -3,7 +3,7 @@
 <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="/">BACKEND - SISTEMA DE COMPRAS - VENTAS</a></li>
+                <li class="breadcrumb-item active"><a href="/">SISTEMA DE INGRESOS - EGRESOS</a></li>
             </ol>
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
@@ -11,7 +11,7 @@
                     <div class="card-header">
 
                        <h2>Listado de Egresos</h2><br/>
-
+                       @if(session('user_roll')!==3)
                        <a href="egreso/create">
 
                         <button class="btn btn-primary btn-lg" type="button">
@@ -19,6 +19,14 @@
                         </button>
 
                         </a>
+
+                        <a href="/files/Conformidad.pdf" target="_blank">
+                            <button type="button" class="btn btn-success btn-lg">
+                                <i class="fa fa-file fa-2x"></i>&nbsp;&nbsp;Conformidad
+
+                            </button>
+                        </a>
+                        @endif
 
                     </div>
                     <div class="card-body">
@@ -41,13 +49,15 @@
                                     <th>Ver Detalle</th>
                                     <th>Fecha Egreso</th>
                                     <th>Número Egreso</th>
-                                    <th>Cliente</th>
+                                    <th>M.Obras</th>
                                     <th>Tipo de Transacción</th>
-                                    <th>Vendedor</th>
+                                    <th>Usuario</th>
                                     <th>Total</th>
                                     <th>Estado</th>
+                                    @if(session('user_roll')!==3)
                                     <th>Cambiar Estado</th>
-                                    <th>Descargar Reporte</th>
+                                    <th>Documento</th>
+                                    @endif
 
                                 </tr>
                             </thead>
@@ -91,7 +101,7 @@
 
                                     </td>
 
-
+                                    @if(session('user_roll')!==3)
                                     <td>
 
                                        @if($eg->estado=="Registrado")
@@ -116,12 +126,13 @@
 
                                            <button type="button" class="btn btn-info btn-sm">
 
-                                             <i class="fa fa-file fa-2x"></i> Proforma
+                                             <i class="fa fa-file fa-2x"></i> Picking List
                                            </button> &nbsp;
 
                                         </a>
 
                                     </td>
+                                    @endif
                                 </tr>
 
                                 @endforeach

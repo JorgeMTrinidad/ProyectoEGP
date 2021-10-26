@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Sistema Ingresos-Egresos con Laravel">
     <meta name="keyword" content="Sistema Ingresos-Egresos con Laravel">
-    <title>Repuestos Vimega</title>
+    <title>Proyecto EGP</title>
     <!-- Icons -->
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/simple-line-icons.min.css')}}" rel="stylesheet">
@@ -146,7 +146,6 @@
         var id_categoria_modal_editar = button.data('id_categoria')
         var nombre_modal_editar = button.data('nombre')
         var precio_egreso_modal_editar = button.data('precio_egreso')
-        var codigo_modal_editar = button.data('codigo')
         var stock2_modal_editar = button.data('stock2')
         //var imagen_modal_editar = button.data('imagen1')
         var id_producto = button.data('id_producto')
@@ -156,7 +155,6 @@
         modal.find('.modal-body #id').val(id_categoria_modal_editar);
         modal.find('.modal-body #nombre').val(nombre_modal_editar);
         modal.find('.modal-body #precio_egreso').val(precio_egreso_modal_editar);
-        modal.find('.modal-body #codigo').val(codigo_modal_editar);
         modal.find('.modal-body #stock2').val(stock2_modal_editar);
        // modal.find('.modal-body #subirImagen').html("<img src="img/producto/imagen_modal_editar">");
         modal.find('.modal-body #id_producto').val(id_producto);

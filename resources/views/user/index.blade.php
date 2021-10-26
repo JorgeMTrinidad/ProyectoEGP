@@ -3,7 +3,7 @@
 <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="/">BACKEND - SISTEMA DE COMPRAS - VENTAS</a></li>
+                <li class="breadcrumb-item active"><a href="/">SISTEMA DE INGRESOS - EGRESOS</a></li>
             </ol>
             <div class="container-fluid">
                 <!-- Ejemplo de tabla Listado -->
@@ -11,7 +11,7 @@
                     <div class="card-header">
 
                        <h2>Listado de Usuarios</h2><br/>
-                      
+
                         <button class="btn btn-primary btn-lg" type="button" data-toggle="modal" data-target="#abrirmodal">
                             <i class="fa fa-plus fa-2x"></i>&nbsp;&nbsp;Agregar Usuario
                         </button>
@@ -19,9 +19,9 @@
                     <div class="card-body">
                         <div class="form-group row">
                             <div class="col-md-6">
-                            {!!Form::open(array('url'=>'user','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!} 
+                            {!!Form::open(array('url'=>'user','method'=>'GET','autocomplete'=>'off','role'=>'search'))!!}
                                 <div class="input-group">
-                                   
+
                                     <input type="text" name="buscarTexto" class="form-control" placeholder="Buscar texto" value="{{$buscarTexto}}">
                                     <button type="submit"  class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
                                 </div>
@@ -31,7 +31,7 @@
                         <table class="table table-bordered table-striped table-sm">
                             <thead>
                                 <tr class="bg-primary">
-                                   
+
                                     <th>Nombre</th>
                                     <th>Tipo Documento</th>
                                     <th>Número</th>
@@ -48,9 +48,9 @@
                             <tbody>
 
                                @foreach($usuarios as $user)
-                               
+
                                 <tr>
-                                    
+
                                     <td>{{$user->nombre}}</td>
                                     <td>{{$user->tipo_documento}}</td>
                                     <td>{{$user->num_documento}}</td>
@@ -59,34 +59,34 @@
                                     <td>{{$user->email}}</td>
                                     <td>{{$user->usuario}}</td>
                                     <td>{{$user->rol}}</td>
-                            
+
 
                                     <td>
-                                      
+
                                       @if($user->condicion=="1")
                                         <button type="button" class="btn btn-success btn-md">
-                                    
+
                                           <i class="fa fa-check fa-2x"></i> Activo
                                         </button>
 
                                       @else
 
                                         <button type="button" class="btn btn-danger btn-md">
-                                    
+
                                           <i class="fa fa-check fa-2x"></i> Desactivado
                                         </button>
 
                                        @endif
-                                       
+
                                     </td>
-                            
+
                                     <td>
                                         <button type="button" class="btn btn-info btn-md" data-id_usuario="{{$user->id}}" data-nombre="{{$user->nombre}}" data-tipo_documento="{{$user->tipo_documento}}" data-num_documento="{{$user->num_documento}}" data-direccion="{{$user->direccion}}" data-telefono="{{$user->telefono}}" data-email="{{$user->email}}" data-id_rol="{{$user->idrol}}"  data-usuario="{{$user->usuario}}"  data-toggle="modal" data-target="#abrirmodalEditar">
                                           <i class="fa fa-edit fa-2x"></i> Editar
                                         </button> &nbsp;
                                     </td>
 
-                                    
+
                                     <td>
 
                                        @if($user->condicion)
@@ -102,17 +102,17 @@
                                         </button>
 
                                         @endif
-                                       
+
                                     </td>
 
-                                    
+
                                 </tr>
 
                                 @endforeach
-                               
+
                             </tbody>
                         </table>
-                            
+
                             {{$usuarios->render()}}
 
                     </div>
@@ -129,19 +129,19 @@
                               <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                       
+
                         <div class="modal-body">
-                             
+
 
                             <form action="{{route('user.store')}}" method="post" class="form-horizontal" enctype="multipart/form-data" >
-                               
+
                                 {{csrf_field()}}
-                                
+
                                 @include('user.form')
 
                             </form>
                         </div>
-                        
+
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -160,22 +160,22 @@
                               <span aria-hidden="true">×</span>
                             </button>
                         </div>
-                       
+
                         <div class="modal-body">
-                             
+
 
                             <form action="{{route('user.update','test')}}" method="post" class="form-horizontal" enctype="multipart/form-data">
-                                
+
                                 {{method_field('patch')}}
                                 {{csrf_field()}}
 
                                 <input type="hidden" id="id_usuario" name="id_usuario" value="">
-                                
+
                                 @include('user.form')
 
                             </form>
                         </div>
-                        
+
                     </div>
                     <!-- /.modal-content -->
                 </div>
@@ -183,7 +183,7 @@
             </div>
             <!--Fin del modal-->
 
-            
+
              <!-- Inicio del modal Cambiar Estado del usuario -->
              <div class="modal fade" id="cambiarEstado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-danger" role="document">
@@ -198,12 +198,12 @@
                     <div class="modal-body">
                         <form action="{{route('user.destroy','test')}}" method="POST">
                          {{method_field('delete')}}
-                         {{csrf_field()}} 
+                         {{csrf_field()}}
 
                             <input type="hidden" id="id_usuario" name="id_usuario" value="">
 
                                 <p>Estas seguro de cambiar el estado?</p>
-        
+
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times fa-2x"></i>Cerrar</button>
@@ -217,10 +217,10 @@
                 <!-- /.modal-dialog -->
              </div>
             <!-- Fin del modal Eliminar -->
-           
 
-           
-            
+
+
+
         </main>
 
 @endsection

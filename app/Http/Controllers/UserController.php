@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use DB;
+use finfo;
 
 class UserController extends Controller
 {
@@ -31,14 +32,14 @@ class UserController extends Controller
              /*listar los roles en ventana modal*/
             $roles=DB::table('roles')
             ->select('id','nombre','descripcion')
-            ->where('condicion','=','1')->get(); 
+            ->where('condicion','=','1')->get();
 
             return view('user.index',["usuarios"=>$usuarios,"roles"=>$roles,"buscarTexto"=>$sql]);
-        
-            //return $usuarios;
-        }      
 
-       
+            //return $usuarios;
+        }
+
+
     }
 
     public function store(Request $request)
@@ -54,18 +55,18 @@ class UserController extends Controller
         $user->usuario = $request->usuario;
         $user->password = bcrypt( $request->password);
         $user->condicion = '1';
-        $user->idrol = $request->id_rol;  
-          
+        $user->idrol = $request->id_rol;
+
 
             $user->save();
-            return Redirect::to("user"); 
-        
+            return Redirect::to("user");
+
     }
 
     public function update(Request $request)
     {
         //
-        
+
         $user= User::findOrFail($request->id_usuario);
         $user->nombre = $request->nombre;
         $user->tipo_documento = $request->tipo_documento;
@@ -76,9 +77,9 @@ class UserController extends Controller
         $user->usuario = $request->usuario;
         $user->password = bcrypt($request->password);
         $user->condicion = '1';
-        $user->idrol = $request->id_rol;   
-           
-          
+        $user->idrol = $request->id_rol;
+
+
           $user->save();
           return Redirect::to("user");
     }
@@ -88,7 +89,7 @@ class UserController extends Controller
     {
         //
         $user= User::findOrFail($request->id_usuario);
-         
+
          if($user->condicion=="1"){
 
                 $user->condicion= '0';
@@ -102,6 +103,30 @@ class UserController extends Controller
                 return Redirect::to("user");
 
             }
+    }
+
+    protected function downloadFile($src){
+        if(is_file($src)){
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $content_type = finfo_file($finfo, $src);
+            finfo_close($finfo);
+            $file_name = basename($src).PHP_EOL;
+            $size = filesize($src);
+            header("Content-Type: $content_type");
+            header("Content-Disposition: attachment; filename=$file_name");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: $size");
+            readfile($src);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function download(){
+        if(!$this->downloadFile(app_path()."/files/terminos.pdf")){
+            return redirect()->back();
+        }
     }
 
 }

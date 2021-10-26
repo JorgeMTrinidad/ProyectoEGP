@@ -49,17 +49,16 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::resource('categoria', 'CategoriaController');
         Route::resource('producto', 'ProductoController');
-        Route::get('/listarProductoPdf', 'ProductoController@listarPdf')->name('productos_pdf');
+        Route::get('/listarProductoPdf', 'ProductoController@listarProductoPdf')->name('productos_pdf');
         Route::resource('proveedor', 'ProveedorController');
         Route::resource('ingreso', 'IngresoController');
         Route::get('/pdfIngreso/{id}', 'IngresoController@pdf')->name('ingreso_pdf');
         Route::resource('egreso', 'EgresoController');
         Route::get('/pdfEgreso/{id}', 'EgresoController@pdf')->name('egreso_pdf');
-        Route::resource('credito', 'CreditoController');
-        Route::get('/pdfCredito/{id}', 'CreditoController@pdf')->name('credito_pdf');
         Route::resource('maestroObras', 'MaestroObrasController');
         Route::resource('rol', 'RolController');
         Route::resource('user', 'UserController');
+        Route::get('user/download', 'UserController@download');
 
     });
 

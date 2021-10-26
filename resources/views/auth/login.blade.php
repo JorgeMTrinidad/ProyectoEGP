@@ -9,9 +9,9 @@
           {{ csrf_field() }}
           <body background="\img\fondo.jpg">
               <div class="card-body">
-              <h3 class="text-center bg-success">MULTISERVICIOS VIMEGA</h3>
-              <p class="text-center bg-success">TALLER Y REPUESTOS</p>
-             
+                <h3 class="text-center bg-success">Proyecto EGP</h3>
+                <p class="text-center bg-success">Construcción</p>
+
               <div class="form-group mb-3{{$errors->has('usuario' ? 'is-invalid' : '')}}">
                 <span class="input-group-addon"><i class="icon-user"></i></span>
                 <input type="text" value="{{old('usuario')}}" name="usuario" id="usuario" class="form-control" placeholder="Usuario">
@@ -20,7 +20,7 @@
               <div class="form-group mb-4{{$errors->has('password' ? 'is-invalid' : '')}}">
                 <span class="input-group-addon"><i class="icon-lock"></i></span>
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-                {!!$errors->first('password','<span class="invalid-feedback">:message</span>')!!} 
+                {!!$errors->first('password','<span class="invalid-feedback">:message</span>')!!}
               </div>
               <div class="row">
                 <div class="col-6">
